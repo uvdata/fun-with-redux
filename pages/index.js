@@ -1,7 +1,6 @@
 import React from 'react';
-import Head from 'next/head'
-import Link from 'next/link'
 import { Provider } from 'react-redux';
+import Header from '../swapi/header';
 
 import store from '../swapi/store';
 import MillenniumFalconConnected from '../swapi/components/millennium-falcon-connected';
@@ -9,17 +8,18 @@ import MillenniumFalconConnected from '../swapi/components/millennium-falcon-con
 export default class ReduxPage extends React.PureComponent {
 	render() {
 		return (<Provider store={store}><div>
-			<Head>
-				<title>Fun With Redux</title>
-				<meta name="viewport" content="initial-scale=1.0, width=device-width" />
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" type="text/css" />
-				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
-			</Head>
+			<Header />
+			<style>{`
+			      body {
+			        background: #f4f4f4;
+			        font: 12px menlo;
+			        color: #000b1e;
+			      }
+			`}</style>
 			<div className="container">
-				<h1>Lots of fun with Redux</h1>
+				<h1>Greatest Star Wars page in the World</h1>
 				<MillenniumFalconConnected />
 			</div>
 		</div></Provider>);
 	}
 }
-
