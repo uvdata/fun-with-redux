@@ -17,7 +17,15 @@ To use as little boilerplate as possible, the app uses the Next framework (https
 ## Challenges
 1. The `ItemDisplay` component contains a button that expands or collapses a JSON dump. It does so by holding it's own state.
 Rewrite this to use redux. 
-2. Rewrite the existing `onChooseEndpoint` action to not fetch new data from the API, if the dat is already loaded.
-3. Make `ItemDisplay` detect what kind of object it has received, and change display based on that
+// DONE!
+
+2. Rewrite the existing `onChooseEndpoint` action to not fetch new data from the API, if the data is already loaded.
+// DONE!
+
+3. Make `ItemDisplay` detect what kind of object it has received, and change display based on that 
+// DONE!
+
 4. Sort the list of items alphabetically
+// DONE
+
 5. Make more changes - use your imagination!
