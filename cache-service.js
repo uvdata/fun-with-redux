@@ -3,10 +3,8 @@ self.addEventListener('fetch', function(event) {
 		caches.match(event.request)
 		.then(function(cachedResponse) {
 			if(cachedResponse && event.request.url.includes('swapi')) {
-				console.log('using cachedResponse', event.request.url);
 				return cachedResponse;
 			} else {
-				console.log('fetching request for', event.request.url);
 				return fetch(event.request)
 					.then(function(response) {
 						return caches.open('swapi')

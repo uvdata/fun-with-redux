@@ -42,8 +42,7 @@ export default class MillenniumFalcon extends React.PureComponent {
 								</ItemDisplay>
 							</td>
 						</tr>
-					)
-					)}
+					))}
 				</tbody>
 			</table>
 		</div>);
