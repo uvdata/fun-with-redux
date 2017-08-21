@@ -2,7 +2,7 @@ self.addEventListener('fetch', function(event) {
 	return event.respondWith(
 		caches.match(event.request)
 		.then(function(cachedResponse) {
-			if(cachedResponse) {
+			if(cachedResponse && event.request.url.includes('swapi')) {
 				console.log('using cachedResponse', event.request.url);
 				return cachedResponse;
 			} else {

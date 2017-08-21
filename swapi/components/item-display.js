@@ -7,7 +7,8 @@ export default class ItemDisplay extends React.PureComponent {
 			url: React.PropTypes.string.isRequired,
 			name: React.PropTypes.string.isRequired,
 			kind: React.PropTypes.string.isRequired,
-		})
+		}),
+		type: React.PropTypes.string
 	};
 
 	state = {
@@ -19,18 +20,26 @@ export default class ItemDisplay extends React.PureComponent {
 	};
 
 	render() {
-		const { children: { name }, onExpandToggle} = this.props;
-		const { isExpanded } = this.state;
+		const { children: { name }, isExpanded, type, onExpandToggle, index} = this.props;
+
 
 		return (<span>
-			<button className="btn btn-xs btn-default" onClick={this.handleExpandToggle} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
+			<button
+				className="btn btn-xs btn-default"
+				onClick={()=>onExpandToggle(index, isExpanded)}
+				aria-label={isExpanded ? 'Collapse' : 'Expand'}>
 				{isExpanded
 					? <i className="fa fa-chevron-circle-up" />
 					: <i className="fa fa-chevron-circle-down" />}
-			</button>
-			{' '}
-			{name}
-			{ isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
-		</span>);
+				</button>
+				{' '}
+				{type === "people"
+					? <i className="fa fa-user" />
+					: <i className="fa fa-film" />
+				}
+				{' '}
+				{name}
+				{ isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
+			</span>);
 	}
 }

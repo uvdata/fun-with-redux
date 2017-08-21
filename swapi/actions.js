@@ -2,6 +2,14 @@ import * as types from './types';
 
 const sleep = (seconds, withValue) => new Promise(resolve => setTimeout(resolve, seconds * 1000, withValue));
 
+export const onExpandToggle = (index, shouldCollapse) => (dispatch) => {
+	return dispatch({
+		type: types.TOGGLE_EXPAND,
+		payload: {
+			index: !shouldCollapse && index
+		}
+	})
+};
 export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 	dispatch({ type: types.PICK_ENDPOINT, payload: endpoint });
 	dispatch({ type: types.START_LOAD });

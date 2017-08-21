@@ -7,6 +7,7 @@ const defaultData = {
 	data: {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
+	expandetIndex: null,
 	operations: 0,
 };
 
@@ -23,9 +24,18 @@ const reducer = (state = {}, action) => {
 			}
 		}
 
+		case types.TOGGLE_EXPAND: {
+			const { index } = action.payload;
+			return {
+				...state,
+				expandetIndex: index,
+			}
+		}
+
 		case types.PICK_ENDPOINT: {
 			return {
 				...state,
+				expandetIndex: null,
 				endpoint: action.payload,
 			};
 		}
