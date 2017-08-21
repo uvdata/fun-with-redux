@@ -11,14 +11,6 @@ export default class ItemDisplay extends React.PureComponent {
 		type: React.PropTypes.string
 	};
 
-	state = {
-		isExpanded: false,
-	};
-
-	handleExpandToggle = () => {
-		this.setState((state) => ({ isExpanded: !state.isExpanded }));
-	};
-
 	render() {
 		const { children: { name }, isExpanded, type, onExpandToggle, index} = this.props;
 
