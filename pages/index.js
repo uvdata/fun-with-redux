@@ -22,4 +22,3 @@ export default class ReduxPage extends React.PureComponent {
 		</div></Provider>);
 	}
 }
-

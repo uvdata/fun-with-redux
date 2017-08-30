@@ -1,5 +1,6 @@
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
+import logger from 'redux-logger';
 import * as types from './types';
 
 const defaultData = {
@@ -11,7 +12,7 @@ const defaultData = {
 };
 
 const reducer = (state = {}, action) => {
-	switch(action.type) {
+	switch (action.type) {
 		case types.SET_DATA: {
 			const { endpoint, data } = action.payload;
 			return {
@@ -48,4 +49,4 @@ const reducer = (state = {}, action) => {
 	return state;
 };
 
-export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware));
+export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware, logger));

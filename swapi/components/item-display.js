@@ -19,18 +19,21 @@ export default class ItemDisplay extends React.PureComponent {
 	};
 
 	render() {
-		const { children: { name }, onExpandToggle} = this.props;
+		const { children: { name, kind }, onExpandToggle } = this.props;
 		const { isExpanded } = this.state;
 
 		return (<span>
 			<button className="btn btn-xs btn-default" onClick={this.handleExpandToggle} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
-				{isExpanded
-					? <i className="fa fa-chevron-circle-up" />
-					: <i className="fa fa-chevron-circle-down" />}
+				{
+					isExpanded ? <i className="fa fa-chevron-circle-up" /> : <i className="fa fa-chevron-circle-down" />
+				}
 			</button>
 			{' '}
+			{kind === 'people' ? <i className="fa fa-users" /> : <i className="fa fa-film" />}
+			{' '}
 			{name}
-			{ isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
+
+			{isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
 		</span>);
 	}
 }

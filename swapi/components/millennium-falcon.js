@@ -21,17 +21,41 @@ export default class MillenniumFalcon extends React.PureComponent {
 			'fa-star': !loading,
 		});
 
-		return (<div>
-			<p><i className={iconClass} /> What do you want to see?</p>
-			<div className="btn-group">
-				<button disabled={loading} onClick={() => onChooseEndpoint('people')} className="btn btn-danger">People</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('films')} className="btn btn-danger">Films</button>
+		const sortByName = (a, b) => {
+			if (a.name < b.name) {
+				return -1;
+			}
+			if (a.name > b.name) {
+				return 1;
+			}
+
+			return 0;
+		}
+
+		return (
+			<div>
+				<p><i className={iconClass} /> What do you want to see?</p>
+				<div className="btn-group">
+					<button disabled={loading} onClick={() => onChooseEndpoint('people')} className="btn btn-danger">
+						People
+					</button>
+					<button disabled={loading} onClick={() => onChooseEndpoint('films')} className="btn btn-danger">
+						Films
+					</button>
+				</div>
+				<br /><br />
+				<table className="table">
+					<tbody>
+						{list.sort(sortByName).map((item) => (
+							<tr key={item.url}>
+								<td>
+									<ItemDisplay>{item}</ItemDisplay>
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
-			<br /><br />
-			<table className="table"><tbody>
-					{list.map((item) => <tr key={item.url}><td><ItemDisplay>{item}</ItemDisplay></td></tr>)}
-				</tbody>
-			</table>
-		</div>);
+		);
 	}
 }
