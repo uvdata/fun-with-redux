@@ -42,3 +42,26 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 		})
 		.then(() => dispatch({ type: types.DONE_LOAD }))
 };
+
+/**
+ *  Toggles the selected item.
+ * @param {*} itemId Unique id, eg. URL.
+ * @param {*} expand True to expand, false will close it again.
+ */
+export const onExpandToggle = (itemId, expand) => (dispatch) => {
+	if (expand) {
+		dispatch(
+			{
+				type: types.EXPAND_ITEM,
+				payload: itemId
+			}
+		)
+	} else {
+		dispatch(
+			{
+				type: types.CLOSE_ITEM,
+				payload: itemId
+			}
+		)
+	}
+}

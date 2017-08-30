@@ -8,6 +8,7 @@ const defaultData = {
 	data: {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
+	expandedItems: [],
 	operations: 0,
 };
 
@@ -42,6 +43,20 @@ const reducer = (state = {}, action) => {
 			return {
 				...state,
 				operations: state.operations - 1,
+			}
+		}
+
+		case types.EXPAND_ITEM: {
+			return {
+				...state,
+				expandedItems: [...state.expandedItems, action.payload]
+			}
+		}
+
+		case types.CLOSE_ITEM: {
+			return {
+				...state,
+				expandedItems: state.expandedItems.filter(id => id !== action.payload)
 			}
 		}
 	}

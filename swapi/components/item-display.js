@@ -3,6 +3,8 @@ import React from 'react';
 export default class ItemDisplay extends React.PureComponent {
 
 	static propTypes = {
+		onExpandToggle: React.PropTypes.func.isRequired,
+		isExpanded: React.PropTypes.bool.isRequired,
 		children: React.PropTypes.shape({
 			url: React.PropTypes.string.isRequired,
 			name: React.PropTypes.string.isRequired,
@@ -10,20 +12,11 @@ export default class ItemDisplay extends React.PureComponent {
 		})
 	};
 
-	state = {
-		isExpanded: false,
-	};
-
-	handleExpandToggle = () => {
-		this.setState((state) => ({ isExpanded: !state.isExpanded }));
-	};
-
 	render() {
-		const { children: { name, kind }, onExpandToggle } = this.props;
-		const { isExpanded } = this.state;
+		const { children: { name, kind, url }, isExpanded, onExpandToggle } = this.props;
 
 		return (<span>
-			<button className="btn btn-xs btn-default" onClick={this.handleExpandToggle} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
+			<button className="btn btn-xs btn-default" onClick={() => onExpandToggle(url, !isExpanded)} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
 				{
 					isExpanded ? <i className="fa fa-chevron-circle-up" /> : <i className="fa fa-chevron-circle-down" />
 				}
