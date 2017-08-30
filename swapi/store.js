@@ -10,6 +10,9 @@ const defaultData = {
 	},
 	expandedItems: [],
 	operations: 0,
+	lastTimeFetched: {
+		/** Will hold timestamp when last updated for each endpoint */
+	}
 };
 
 const reducer = (state = {}, action) => {
@@ -21,6 +24,10 @@ const reducer = (state = {}, action) => {
 				data: {
 					...state.data,
 					[endpoint]: data,
+				},
+				lastTimeFetched: {
+					...state.lastTimeFetched,
+					[endpoint]: Date.now()
 				}
 			}
 		}

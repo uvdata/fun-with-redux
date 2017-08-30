@@ -2,7 +2,16 @@ import * as types from './types';
 
 const sleep = (seconds, withValue) => new Promise(resolve => setTimeout(resolve, seconds * 1000, withValue));
 
+// Cache for 15 seconds. (Only 15 for easy testing.)
+const timeToCache = 15000;
+
+const isCached = (currentState, endpoint) => {
+	return Date.now() - currentState.lastTimeFetched[endpoint] < timeToCache;
+};
+
 export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
+	const currentState = getState();
+
 	dispatch({ type: types.PICK_ENDPOINT, payload: endpoint });
 	dispatch({ type: types.START_LOAD });
 
@@ -32,7 +41,10 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 				return loadedData;
 			})
 			.catch(() => console.error('Oops'))
+	}
 
+	if (isCached(currentState, endpoint)) {
+		return dispatch({ type: types.DONE_LOAD });
 	}
 
 	return loadData('https://swapi.co/api/' + endpoint + '/')
