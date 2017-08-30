@@ -1,6 +1,5 @@
 import thunkMiddleware from 'redux-thunk';
 import { createStore, applyMiddleware } from 'redux';
-import logger from 'redux-logger';
 import * as types from './types';
 
 const defaultData = {
@@ -12,7 +11,18 @@ const defaultData = {
 	operations: 0,
 	lastTimeFetched: {
 		/** Will hold timestamp when last updated for each endpoint */
+	},
+	side: 'light'
+};
+
+const findTarget = (state, target) => {
+	const result = state.data.people.find(char => char.name === target);
+
+	if (result === undefined) {
+		return 'Jar Jar Binks'
 	}
+
+	return result.name;
 };
 
 const reducer = (state = {}, action) => {
@@ -29,7 +39,7 @@ const reducer = (state = {}, action) => {
 					...state.lastTimeFetched,
 					[endpoint]: Date.now()
 				}
-			}
+			};
 		}
 
 		case types.PICK_ENDPOINT: {
@@ -43,32 +53,51 @@ const reducer = (state = {}, action) => {
 			return {
 				...state,
 				operations: state.operations + 1,
-			}
+			};
 		}
 
 		case types.DONE_LOAD: {
 			return {
 				...state,
 				operations: state.operations - 1,
-			}
+			};
 		}
 
 		case types.EXPAND_ITEM: {
 			return {
 				...state,
 				expandedItems: [...state.expandedItems, action.payload]
-			}
+			};
 		}
 
 		case types.CLOSE_ITEM: {
 			return {
 				...state,
 				expandedItems: state.expandedItems.filter(id => id !== action.payload)
-			}
+			};
+		}
+
+		case types.JOIN_DARK_SIDE: {
+			return {
+				...state,
+				theDarkSide: 'dark'
+			};
+		}
+
+		case types.HIRE_BOBA: {
+			const target = findTarget(state, action.payload);
+			console.log(`Target found: ${target}! Going in for the kill!`);
+			return {
+				...state,
+				data: {
+					...state.data,
+					people: state.data.people.filter(character => character.name !== target)
+				}
+			};
 		}
 	}
 
 	return state;
 };
 
-export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware, logger));
+export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware));

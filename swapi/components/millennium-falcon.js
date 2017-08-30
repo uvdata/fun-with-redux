@@ -7,15 +7,25 @@ export default class MillenniumFalcon extends React.PureComponent {
 	static propTypes = {
 		onChooseEndpoint: React.PropTypes.func.isRequired,
 		onExpandToggle: React.PropTypes.func.isRequired,
+		joinTheDarkSide: React.PropTypes.func.isRequired,
+		hireBoba: React.PropTypes.func.isRequired,
 		expandedItems: React.PropTypes.arrayOf(React.PropTypes.string),
 		list: React.PropTypes.arrayOf(React.PropTypes.shape({
 			url: React.PropTypes.string.isRequired,
 		})).isRequired,
 		side: React.PropTypes.string,
+		endpoint: React.PropTypes.string
+	};
+
+	state = {
+		target: ''
 	};
 
 	render() {
-		const { loading, list, onChooseEndpoint, onExpandToggle, expandedItems } = this.props;
+		const {
+			loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
+			side, endpoint, joinTheDarkSide, hireBoba
+		} = this.props;
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -32,7 +42,25 @@ export default class MillenniumFalcon extends React.PureComponent {
 			}
 
 			return 0;
-		}
+		};
+
+		const changeTarget = (e) => {
+			this.setState({
+				target: e.target.value
+			});
+		};
+
+		const sendBoba = () => {
+			hireBoba(this.state.target);
+
+			this.setState({
+				target: ''
+			});
+		};
+
+		const isBobaAvailable = () => {
+			return loading || side !== 'dark' || endpoint !== 'people';
+		};
 
 		return (
 			<div>
@@ -45,16 +73,36 @@ export default class MillenniumFalcon extends React.PureComponent {
 						Films
 					</button>
 				</div>
-				<br /><br />
+
+				{' '}
+
+				<button disabled={loading || side === 'dark'} onClick={() => joinTheDarkSide()}
+						className="btn btn-danger">
+					Join the Dark Side
+				</button>
+				{' '}
+				<input disabled={isBobaAvailable()} type="text" placeholder="Target" value={this.state.target}
+					   onChange={changeTarget} />
+				{' '}
+				<button disabled={isBobaAvailable()} onClick={() => sendBoba()} className="btn btn-danger"
+						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}
+				>
+					Hire Boba Fett
+				</button>
+				<br /> <br />
 				<table className="table">
 					<tbody>
-						{list.sort(sortByName).map((item) => (
-							<tr key={item.url}>
-								<td>
-									<ItemDisplay isExpanded={expandedItems.indexOf(item.url) != -1} onExpandToggle={onExpandToggle}>{item}</ItemDisplay>
-								</td>
-							</tr>
-						))}
+					{list.sort(sortByName).map((item) => (
+						<tr key={item.url}>
+							<td>
+								<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
+											 onExpandToggle={onExpandToggle}
+								>
+									{item}
+								</ItemDisplay>
+							</td>
+						</tr>
+					))}
 					</tbody>
 				</table>
 			</div>

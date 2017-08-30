@@ -76,4 +76,21 @@ export const onExpandToggle = (itemId, expand) => (dispatch) => {
 			}
 		)
 	}
-}
+};
+
+export const joinTheDarkSide = () => (dispatch) => {
+	dispatch(
+		{
+			type: types.JOIN_DARK_SIDE
+		}
+	)
+};
+
+export const hireBoba = (target) => (dispatch) => {
+	dispatch(
+		{
+			type: types.HIRE_BOBA,
+			payload: target
+		}
+	)
+};
