@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ItemDisplay from './item-display';
+import DarkSide from './dark-side';
 
 export default class MillenniumFalcon extends React.PureComponent {
 
@@ -17,15 +18,9 @@ export default class MillenniumFalcon extends React.PureComponent {
 		endpoint: React.PropTypes.string
 	};
 
-	state = {
-		target: ''
-	};
-
 	render() {
-		const {
-			loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
-			side, endpoint, joinTheDarkSide, hireBoba
-		} = this.props;
+		const { loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
+			side, endpoint, joinTheDarkSide, hireBoba } = this.props;
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -44,24 +39,6 @@ export default class MillenniumFalcon extends React.PureComponent {
 			return 0;
 		};
 
-		const changeTarget = (e) => {
-			this.setState({
-				target: e.target.value
-			});
-		};
-
-		const sendBoba = () => {
-			hireBoba(this.state.target);
-
-			this.setState({
-				target: ''
-			});
-		};
-
-		const isBobaAvailable = () => {
-			return loading || side !== 'dark' || endpoint !== 'people';
-		};
-
 		return (
 			<div>
 				<p><i className={iconClass} /> What do you want to see?</p>
@@ -73,22 +50,8 @@ export default class MillenniumFalcon extends React.PureComponent {
 						Films
 					</button>
 				</div>
-
 				{' '}
-
-				<button disabled={loading || side === 'dark'} onClick={() => joinTheDarkSide()}
-						className="btn btn-danger">
-					Join the Dark Side
-				</button>
-				{' '}
-				<input disabled={isBobaAvailable()} type="text" placeholder="Target" value={this.state.target}
-					   onChange={changeTarget} />
-				{' '}
-				<button disabled={isBobaAvailable()} onClick={() => sendBoba()} className="btn btn-danger"
-						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}
-				>
-					Hire Boba Fett
-				</button>
+				<DarkSide loading={loading} side={side} endpoint={endpoint} joinTheDarkSide={joinTheDarkSide} hireBoba={hireBoba} />
 				<br /> <br />
 				<table className="table">
 					<tbody>
@@ -96,8 +59,7 @@ export default class MillenniumFalcon extends React.PureComponent {
 						<tr key={item.url}>
 							<td>
 								<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
-											 onExpandToggle={onExpandToggle}
-								>
+											 onExpandToggle={onExpandToggle}>
 									{item}
 								</ItemDisplay>
 							</td>
