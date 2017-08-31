@@ -2,7 +2,13 @@ import React from 'react';
 
 export default class DarkSide extends React.PureComponent {
 
-	static propTypes = {};
+	static propTypes = {
+		side: React.PropTypes.string,
+		endpoint: React.PropTypes.string,
+		joinTheDarkSide: React.PropTypes.func.isRequired,
+		hireBoba: React.PropTypes.func.isRequired,
+		loading: React.PropTypes.bool.isRequired
+	};
 
 	state = {
 		target: ''
@@ -40,8 +46,7 @@ export default class DarkSide extends React.PureComponent {
 					   onChange={changeTarget} />
 				{' '}
 				<button disabled={isBobaAvailable()} onClick={() => sendBoba()} className="btn btn-danger"
-						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}
-				>
+						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}>
 					Hire Boba Fett
 				</button>
 			</span>

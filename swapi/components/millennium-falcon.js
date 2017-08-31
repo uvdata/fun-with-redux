@@ -15,7 +15,8 @@ export default class MillenniumFalcon extends React.PureComponent {
 			url: React.PropTypes.string.isRequired,
 		})).isRequired,
 		side: React.PropTypes.string,
-		endpoint: React.PropTypes.string
+		endpoint: React.PropTypes.string,
+		loading: React.PropTypes.bool.isRequired
 	};
 
 	render() {
@@ -51,7 +52,11 @@ export default class MillenniumFalcon extends React.PureComponent {
 					</button>
 				</div>
 				{' '}
-				<DarkSide loading={loading} side={side} endpoint={endpoint} joinTheDarkSide={joinTheDarkSide} hireBoba={hireBoba} />
+				<DarkSide loading={loading}
+						  side={side}
+						  endpoint={endpoint}
+						  joinTheDarkSide={joinTheDarkSide}
+						  hireBoba={hireBoba} />
 				<br /> <br />
 				<table className="table">
 					<tbody>
