@@ -8,7 +8,7 @@ export default class MillenniumFalcon extends React.PureComponent {
 	static propTypes = {
 		onChooseEndpoint: React.PropTypes.func.isRequired,
 		onExpandToggle: React.PropTypes.func.isRequired,
-		joinTheDarkSide: React.PropTypes.func.isRequired,
+		chooseSide: React.PropTypes.func.isRequired,
 		hireBoba: React.PropTypes.func.isRequired,
 		expandedItems: React.PropTypes.arrayOf(React.PropTypes.string),
 		list: React.PropTypes.arrayOf(React.PropTypes.shape({
@@ -21,7 +21,7 @@ export default class MillenniumFalcon extends React.PureComponent {
 
 	render() {
 		const { loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
-			side, endpoint, joinTheDarkSide, hireBoba } = this.props;
+			side, endpoint, chooseSide, hireBoba } = this.props;
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -53,23 +53,23 @@ export default class MillenniumFalcon extends React.PureComponent {
 				</div>
 				{' '}
 				<DarkSide loading={loading}
-						  side={side}
-						  endpoint={endpoint}
-						  joinTheDarkSide={joinTheDarkSide}
-						  hireBoba={hireBoba} />
+					side={side}
+					endpoint={endpoint}
+					chooseSide={chooseSide}
+					hireBoba={hireBoba} />
 				<br /> <br />
 				<table className="table">
 					<tbody>
-					{list.sort(sortByName).map((item) => (
-						<tr key={item.url}>
-							<td>
-								<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
-											 onExpandToggle={onExpandToggle}>
-									{item}
-								</ItemDisplay>
-							</td>
-						</tr>
-					))}
+						{list.sort(sortByName).map((item) => (
+							<tr key={item.url}>
+								<td>
+									<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
+										onExpandToggle={onExpandToggle}>
+										{item}
+									</ItemDisplay>
+								</td>
+							</tr>
+						))}
 					</tbody>
 				</table>
 			</div>

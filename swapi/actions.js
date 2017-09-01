@@ -78,10 +78,11 @@ export const onExpandToggle = (itemId, expand) => (dispatch) => {
 	}
 };
 
-export const joinTheDarkSide = () => (dispatch) => {
+export const chooseSide = (side) => (dispatch) => {
 	dispatch(
 		{
-			type: types.JOIN_DARK_SIDE
+			type: types.JOIN_DARK_SIDE,
+			payload: side
 		}
 	)
 };

@@ -15,7 +15,7 @@ export default class DarkSide extends React.PureComponent {
 	};
 
 	render() {
-		const { loading, side, endpoint, joinTheDarkSide, hireBoba  } = this.props;
+		const { loading, side, endpoint, joinTheDarkSide, hireBoba } = this.props;
 
 		const changeTarget = (e) => {
 			this.setState({
@@ -38,15 +38,15 @@ export default class DarkSide extends React.PureComponent {
 		return (
 			<span>
 				<button disabled={loading || side === 'dark'} onClick={() => joinTheDarkSide()}
-						className="btn btn-danger">
+					className="btn btn-danger">
 					Join the Dark Side
 				</button>
 				{' '}
 				<input disabled={isBobaAvailable()} type="text" placeholder="Target" value={this.state.target}
-					   onChange={changeTarget} />
+					onChange={changeTarget} />
 				{' '}
 				<button disabled={isBobaAvailable()} onClick={() => sendBoba()} className="btn btn-danger"
-						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}>
+					title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}>
 					Hire Boba Fett
 				</button>
 			</span>

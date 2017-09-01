@@ -12,7 +12,7 @@ const defaultData = {
 	lastTimeFetched: {
 		/** Will hold timestamp when last updated for each endpoint */
 	},
-	side: 'light'
+	side: ''
 };
 
 const findTarget = (state, target) => {
@@ -80,7 +80,7 @@ const reducer = (state = {}, action) => {
 		case types.JOIN_DARK_SIDE: {
 			return {
 				...state,
-				theDarkSide: 'dark'
+				side: action.payload
 			};
 		}
 
