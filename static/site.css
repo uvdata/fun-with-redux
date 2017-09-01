@@ -1,0 +1,27 @@
+.target-card {
+	font-size: 2.5rem;
+	color: darkgray;
+	line-height: 15rem;
+	text-align: center;
+	position: fixed;
+}
+
+.target-card-button {
+	position: fixed;
+	top: 33.5rem;
+}
+
+.target-card-selected {
+	color: red;
+}
+
+.target-card-text {
+	display: inline-block;
+	vertical-align: middle;
+	line-height: normal;
+}
+
+.target-card-icon {
+	font-size: 10rem;
+	vertical-align: middle;
+}
