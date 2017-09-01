@@ -20,7 +20,8 @@ export default class MillenniumFalcon extends React.PureComponent {
 	};
 
 	render() {
-		const { loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
+		const {
+			loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
 			side, endpoint, chooseSide, hireBoba } = this.props;
 
 		const iconClass = classNames('fa', {
@@ -41,38 +42,44 @@ export default class MillenniumFalcon extends React.PureComponent {
 		};
 
 		return (
-			<div>
-				<p><i className={iconClass} /> What do you want to see?</p>
-				<div className="btn-group">
-					<button disabled={loading} onClick={() => onChooseEndpoint('people')} className="btn btn-danger">
-						People
-					</button>
-					<button disabled={loading} onClick={() => onChooseEndpoint('films')} className="btn btn-danger">
-						Films
-					</button>
+			<span>
+				<div className="row">
+					<div className="col-xs-6">
+						<p><i className={iconClass} /> Welcome to the Dark side.</p>
+						<div className="btn-group">
+							<button disabled={loading} onClick={() => onChooseEndpoint('people')} className="btn btn-danger">
+								Load Contracts
+							</button>
+							<button disabled={loading} onClick={() => onChooseEndpoint('films')} className="btn btn-danger">
+								Films
+							</button>
+						</div>
+						{' '}
+					</div>
 				</div>
-				{' '}
-				<DarkSide loading={loading}
-					side={side}
-					endpoint={endpoint}
-					chooseSide={chooseSide}
-					hireBoba={hireBoba} />
-				<br /> <br />
-				<table className="table">
-					<tbody>
-						{list.sort(sortByName).map((item) => (
-							<tr key={item.url}>
-								<td>
-									<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
-										onExpandToggle={onExpandToggle}>
-										{item}
-									</ItemDisplay>
-								</td>
-							</tr>
-						))}
-					</tbody>
-				</table>
-			</div>
+				<div className="row">
+					<div className="col-xs-6">
+						<table className="table">
+							<tbody>
+								{list.sort(sortByName).map((item) => (
+									<tr key={item.url}>
+										<td>
+											<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
+												onExpandToggle={onExpandToggle}>
+												{item}
+											</ItemDisplay>
+										</td>
+									</tr>
+								))}
+							</tbody>
+						</table>
+					</div>
+					<DarkSide loading={loading}
+						side={side}
+						endpoint={endpoint}
+						hireBoba={hireBoba} />
+				</div>
+			</span>
 		);
 	}
 }

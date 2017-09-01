@@ -31,7 +31,6 @@ class MillenniumFalconConnected extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-	1
 	const { endpoint, data, expandedItems, side } = state;
 	const list = (data && data[endpoint]) || [];
 
