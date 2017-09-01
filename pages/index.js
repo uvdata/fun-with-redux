@@ -15,9 +15,13 @@ export default class ReduxPage extends React.PureComponent {
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" type="text/css" />
 				<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
 				<link rel="stylesheet" href="./static/site.css" type="text/css" />
+				<link rel="stylesheet" href="./static/styles.css" />
 			</Head>
-			<div className="container">
-				<h1>Lots of fun with Redux</h1>
+			<div>
+				{/* <header className="text-center">
+					<h1>Lots of fun with Redux</h1>
+				</header> */}
+
 				<MillenniumFalconConnected />
 			</div>
 		</div></Provider>);
