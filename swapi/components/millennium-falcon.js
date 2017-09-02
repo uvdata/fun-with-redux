@@ -37,31 +37,32 @@ export default class MillenniumFalcon extends React.PureComponent {
 		};
 
 		return (
-			<div className="row">
-				<div className="col-xs-6">
-					<table className="table">
-						<tbody>
-						{list.sort(sortByName).map((item) => (
-							<tr key={item.url}>
-								<td>
-									<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
-												 onExpandToggle={onExpandToggle}
-												 selectTarget={selectTarget}
-												 loading={loading}
-												 kills={kills}>
-										{item}
-									</ItemDisplay>
-								</td>
-							</tr>
-						))}
-						</tbody>
-					</table>
+			<div className="container table-wrapper">
+				<div className="row">
+					<div className="col-xs-6">
+						<table className="table">
+							<tbody>
+							{list.sort(sortByName).map((item) => (
+								<tr key={item.url}>
+									<td>
+										<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
+													 onExpandToggle={onExpandToggle}
+													 selectTarget={selectTarget}
+													 kills={kills}>
+											{item}
+										</ItemDisplay>
+									</td>
+								</tr>
+							))}
+							</tbody>
+						</table>
+					</div>
+					{
+						side === 'dark' && endpoint !== 'films' && list.length
+							? <DarkSide loading={loading} target={target} sendBoba={sendBoba} />
+							: ''
+					}
 				</div>
-				{
-					side === 'dark' && endpoint !== 'films' && list.length
-						? <DarkSide loading={loading} target={target} sendBoba={sendBoba} />
-						: ''
-				}
 			</div>
 		);
 	}

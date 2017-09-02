@@ -38,25 +38,29 @@ export default class EndpointMenu extends React.PureComponent {
 		);
 
 		return (
-			<div className="row text-center">
-				<h4>
-					<i className={iconClass} /><br />
-					{
-						isDarkSide
-							? darkText
-							: lightText
-					}
+			<div className="menu-wrapper">
+				<div className="container">
+					<div className="row text-center">
+						<h4>
+							<i className={iconClass} /><br />
+							{
+								isDarkSide
+									? darkText
+									: lightText
+							}
+						</h4>
 
-				</h4>
-
-				<div className="btn-group">
-					<button disabled={loading} onClick={() => onChooseEndpoint('people')}
-							className={buttonClass}>
-						{isDarkSide ? 'Bounties' : 'Casualties'}
-					</button>
-					<button disabled={loading} onClick={() => onChooseEndpoint('films')} className={buttonClass}>
-						Films
-					</button>
+						<div className="btn-group">
+							<button disabled={loading} onClick={() => onChooseEndpoint('people')}
+									className={buttonClass}>
+								{isDarkSide ? 'Bounties' : 'Casualties'}
+							</button>
+							<button disabled={loading} onClick={() => onChooseEndpoint('films')}
+									className={buttonClass}>
+								Films
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		);
