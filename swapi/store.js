@@ -102,6 +102,13 @@ const reducer = (state = {}, action) => {
 				target: ''
 			};
 		}
+
+		case types.REVIVE: {
+			return {
+				...state,
+				kills: state.kills.filter(char => char !== action.payload)
+			};
+		}
 	}
 
 	return state;

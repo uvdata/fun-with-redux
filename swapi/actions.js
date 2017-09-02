@@ -104,3 +104,12 @@ export const sendBoba = (target) => (dispatch) => {
 		}
 	)
 };
+
+export const revive = (target) => (dispatch) => {
+	dispatch(
+		{
+			type: types.REVIVE,
+			payload: target
+		}
+	)
+};
