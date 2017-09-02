@@ -52,10 +52,6 @@
 	text-align: center;
 }
 
-.target-card-button {
-	top: 33.5rem;
-}
-
 .target-card-selected {
 	color: #c9302c;
 	border-color: #ac2925;
@@ -70,4 +66,16 @@
 .target-card-icon {
 	font-size: 10rem;
 	vertical-align: middle;
+}
+
+.stack {
+	position: absolute;
+}
+
+.terminated {
+	width: 10rem;
+	padding: 2px;
+	color: #c9302c;
+	border: #ac2925 1px solid;
+	font-weight: bold;
 }

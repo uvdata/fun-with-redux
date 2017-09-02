@@ -12,7 +12,7 @@ class MillenniumFalconConnected extends React.PureComponent {
 	render() {
 		const {
 			loading, list, onChooseEndpoint, onExpandToggle, expandedItems,
-			side, endpoint, chooseSide, selectTarget, target
+			side, endpoint, chooseSide, selectTarget, target, sendBoba, kills
 		} = this.props;
 
 		return (
@@ -31,6 +31,8 @@ class MillenniumFalconConnected extends React.PureComponent {
 										  side={side}
 										  expandedItems={expandedItems}
 										  target={target}
+										  sendBoba={sendBoba}
+										  kills={kills}
 				/> : ''}
 
 			</div>
@@ -39,7 +41,7 @@ class MillenniumFalconConnected extends React.PureComponent {
 }
 
 const mapStateToProps = (state) => {
-	const { endpoint, data, expandedItems, side, target } = state;
+	const { endpoint, data, expandedItems, side, target, kills } = state;
 	const list = (data && data[endpoint]) || [];
 
 	return {
@@ -48,7 +50,8 @@ const mapStateToProps = (state) => {
 		expandedItems,
 		loading: state.operations > 0,
 		side: side,
-		target
+		target,
+		kills
 	};
 };
 
@@ -58,6 +61,7 @@ const mapDispatchToProps = (dispatch) => {
 		onExpandToggle: actions.onExpandToggle,
 		chooseSide: actions.chooseSide,
 		selectTarget: actions.selectTarget,
+		sendBoba: actions.sendBoba,
 	}, dispatch);
 };
 

@@ -21,7 +21,7 @@ const defaultData = {
 const findTarget = (state, target) => {
 	const result = state.data.people.find(char => char.name === target);
 
-	if (result === undefined) {
+	if (result.name === 'Boba Fett') {
 		return 'Jar Jar Binks'
 	}
 
@@ -94,15 +94,12 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
-		case types.HIRE_BOBA: {
+		case types.SEND_BOBA: {
 			const target = findTarget(state, action.payload);
-			console.log(`Target found: ${target}! Going in for the kill!`);
 			return {
 				...state,
-				data: {
-					...state.data,
-					people: state.data.people.filter(character => character.name !== target)
-				}
+				kills: [...state.kills, target],
+				target: ''
 			};
 		}
 	}

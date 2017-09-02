@@ -6,7 +6,7 @@ export default class EndpointMenu extends React.PureComponent {
 	static propTypes = {
 		onChooseEndpoint: React.PropTypes.func.isRequired,
 		loading: React.PropTypes.bool.isRequired,
-		side: React.PropTypes.bool.isRequired
+		side: React.PropTypes.string.isRequired
 	};
 
 	render() {

@@ -95,3 +95,12 @@ export const selectTarget = (target) => (dispatch) => {
 		}
 	)
 };
+
+export const sendBoba = (target) => (dispatch) => {
+	dispatch(
+		{
+			type: types.SEND_BOBA,
+			payload: target
+		}
+	)
+};

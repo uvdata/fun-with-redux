@@ -14,11 +14,16 @@ export default class MillenniumFalcon extends React.PureComponent {
 		side: React.PropTypes.string,
 		endpoint: React.PropTypes.string,
 		loading: React.PropTypes.bool.isRequired,
-		target: React.PropTypes.string
+		target: React.PropTypes.string,
+		sendBoba: React.PropTypes.func.isRequired,
+		kills: React.PropTypes.arrayOf(React.PropTypes.string).isRequired
 	};
 
 	render() {
-		const { loading, list, onExpandToggle, expandedItems, side, endpoint, selectTarget, target } = this.props;
+		const {
+			loading, list, onExpandToggle, expandedItems,
+			side, endpoint, selectTarget, target, sendBoba, kills
+		} = this.props;
 
 		const sortByName = (a, b) => {
 			if (a.name < b.name) {
@@ -42,7 +47,8 @@ export default class MillenniumFalcon extends React.PureComponent {
 									<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
 												 onExpandToggle={onExpandToggle}
 												 selectTarget={selectTarget}
-												 loading={loading} >
+												 loading={loading}
+												 kills={kills}>
 										{item}
 									</ItemDisplay>
 								</td>
@@ -53,7 +59,7 @@ export default class MillenniumFalcon extends React.PureComponent {
 				</div>
 				{
 					side === 'dark' && endpoint !== 'films' && list.length
-						? <DarkSide loading={loading} target={target} />
+						? <DarkSide loading={loading} target={target} sendBoba={sendBoba} />
 						: ''
 				}
 			</div>
