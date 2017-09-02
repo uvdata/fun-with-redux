@@ -25,13 +25,13 @@ export default class ChooseSide extends React.PureComponent {
 				<div className="col-xs-6 side-menu-icon">
 					<span className={lightSide} onClick={() => chooseSide('light')}>
 						<i className="fa fa-rebel" />
-						<p>The Light Side</p>
+						<h3>The Light Side</h3>
 					</span>
 				</div>
 				<div className="col-xs-6 side-menu-icon">
 					<span className={darkSide} onClick={() => chooseSide('dark')}>
 						<i className="fa fa-empire" />
-						<p>The Dark Side</p>
+						<h3>The Dark Side</h3>
 					</span>
 				</div>
 			</div>

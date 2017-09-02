@@ -1,48 +1,36 @@
 import React from 'react';
+import classNames from 'classnames';
 
 export default class DarkSide extends React.PureComponent {
 
 	static propTypes = {
-		side: React.PropTypes.string,
-		endpoint: React.PropTypes.string,
-		hireBoba: React.PropTypes.func.isRequired,
-		loading: React.PropTypes.bool.isRequired
-	};
-
-	state = {
-		target: ''
+		loading: React.PropTypes.bool.isRequired,
+		target: React.PropTypes.string
 	};
 
 	render() {
-		const { loading, side, endpoint, hireBoba } = this.props;
+		const { loading, target } = this.props;
 
-		const changeTarget = (e) => {
-			this.setState({
-				target: e.target.value
-			});
-		};
-
-		const sendBoba = () => {
-			hireBoba(this.state.target);
-
-			this.setState({
-				target: ''
-			});
-		};
-
-		const isBobaAvailable = () => {
-			return loading || side !== 'dark' || endpoint !== 'people';
-		};
+		const targetCard = classNames('well target-card', {
+			'target-card-selected': target !== ''
+		});
 
 		return (
 			<div className="col-xs-4">
 				<div className="fixed-target-card">
-					<div className="well target-card">
-						<i className="fa fa-crosshairs target-card-icon " aria-hidden="true" />{' '}
-						<span className="target-card-text">No target selected</span>
+					<div className={targetCard}>
+						<i className="fa fa-crosshairs target-card-icon" aria-hidden="true" />{' '}
+						<span className="target-card-text">
+							{
+								target === '' ? 'No target selected' : 'Target selected:'
+							}
+							<br />
+							{target}
+						</span>
 					</div>
-					<button disabled={isBobaAvailable()} onClick={() => sendBoba()} className="btn btn-danger target-card-button"
-						title={isBobaAvailable() ? "Does not work for rebel scum and need a hit-list" : ""}>
+					<button disabled={loading || target === ''} onClick={() => sendBoba()}
+							className="btn btn-danger target-card-button"
+							title="Does not work for rebel scum.">
 						Send Boba Fett
 					</button>
 				</div>

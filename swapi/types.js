@@ -6,3 +6,4 @@ export const EXPAND_ITEM = 'EXPAND_ITEM';
 export const CLOSE_ITEM = 'CLOSE_ITEM';
 export const JOIN_DARK_SIDE = 'JOIN_DARK_SIDE';
 export const HIRE_BOBA = 'HIRE_BOBA';
+export const SELECT_TARGET = 'SELECT_TARGET';

@@ -87,10 +87,10 @@ export const chooseSide = (side) => (dispatch) => {
 	)
 };
 
-export const hireBoba = (target) => (dispatch) => {
+export const selectTarget = (target) => (dispatch) => {
 	dispatch(
 		{
-			type: types.HIRE_BOBA,
+			type: types.SELECT_TARGET,
 			payload: target
 		}
 	)

@@ -1,4 +1,5 @@
 import thunkMiddleware from 'redux-thunk';
+import logger from 'redux-logger';
 import { createStore, applyMiddleware } from 'redux';
 import * as types from './types';
 
@@ -12,7 +13,9 @@ const defaultData = {
 	lastTimeFetched: {
 		/** Will hold timestamp when last updated for each endpoint */
 	},
-	side: ''
+	side: '',
+	target: '',
+	kills: []
 };
 
 const findTarget = (state, target) => {
@@ -84,6 +87,13 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
+		case types.SELECT_TARGET: {
+			return {
+				...state,
+				target: action.payload
+			};
+		}
+
 		case types.HIRE_BOBA: {
 			const target = findTarget(state, action.payload);
 			console.log(`Target found: ${target}! Going in for the kill!`);
@@ -100,4 +110,4 @@ const reducer = (state = {}, action) => {
 	return state;
 };
 
-export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware));
+export default createStore(reducer, defaultData, applyMiddleware(thunkMiddleware, logger));
