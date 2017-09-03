@@ -32,28 +32,27 @@ export default class ItemDisplay extends React.PureComponent {
 		);
 
 
-		return (<span>
-			{ side === 'dark' ? darkSideIcon : lightSideIcon }
+		return (
+			<span>
+				{isPeople ? side === 'dark' ? darkSideIcon : lightSideIcon : ''}
 
-			<button className="btn btn-xs btn-default"
-					onClick={() => onExpandToggle(url, !isExpanded)}
-					aria-label={isExpanded ? 'Collapse' : 'Expand'}>
-				{
-					isExpanded ? <i className="fa fa-chevron-circle-up" /> : <i className="fa fa-chevron-circle-down" />
-				}
-			</button>
-			{' '}
-			{isPeople ? <i className="fa fa-users" /> : <i className="fa fa-film" />} {name}
-			{' '}
-			{isKilled ?
-				<span className="terminated">
-					TERMINATED!
-				</span>
-				: ''
-			}
+				<button className="btn btn-xs btn-default"
+						onClick={() => onExpandToggle(url, !isExpanded)}
+						aria-label={isExpanded ? 'Collapse' : 'Expand'}>
+					{
+						isExpanded ? <i className="fa fa-chevron-circle-up" />
+							: <i className="fa fa-chevron-circle-down" />
+					}
+				</button>
 
-			{isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
+				{' '}
+				{isPeople ? <i className="fa fa-users" /> : <i className="fa fa-film" />} {name}
 
-				</span>);
+				{' '}
+				{isKilled ? <span className="terminated"> TERMINATED! </span> : '' }
+
+				{isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
+			</span>
+		);
 	}
 }

@@ -17,13 +17,11 @@ class MillenniumFalconConnected extends React.PureComponent {
 
 		return (
 			<div>
-
 				<ChooseSide chooseSide={chooseSide} side={side} />
 
 				{side ? <EndpointMenu onChooseEndpoint={onChooseEndpoint} loading={loading} side={side} /> : ''}
 
 				{side ? <MillenniumFalcon list={list}
-										  onChooseEndpoint={onChooseEndpoint}
 										  onExpandToggle={onExpandToggle}
 										  selectTarget={selectTarget}
 										  loading={loading}
@@ -34,7 +32,7 @@ class MillenniumFalconConnected extends React.PureComponent {
 										  sendBoba={sendBoba}
 										  kills={kills}
 										  revive={revive}
-						/> : '' }
+				/> : ''}
 			</div>
 		)
 	};
