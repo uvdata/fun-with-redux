@@ -43,13 +43,8 @@ export default class EndpointMenu extends React.PureComponent {
 					<div className="row text-center">
 						<h4>
 							<i className={iconClass} /><br />
-							{
-								isDarkSide
-									? darkText
-									: lightText
-							}
+							{isDarkSide ? darkText : lightText}
 						</h4>
-
 						<div className="btn-group">
 							<button disabled={loading} onClick={() => onChooseEndpoint('people')}
 									className={buttonClass}>

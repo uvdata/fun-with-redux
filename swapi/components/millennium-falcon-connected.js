@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import MillenniumFalcon from '../components/millennium-falcon';
 import ChooseSide from '../components/choose-side';
 import EndpointMenu from '../components/endpoint-menu';
+import DarkSide from './dark-side';
 
 import * as actions from '../actions';
 
@@ -21,18 +22,24 @@ class MillenniumFalconConnected extends React.PureComponent {
 
 				{side ? <EndpointMenu onChooseEndpoint={onChooseEndpoint} loading={loading} side={side} /> : ''}
 
-				{side ? <MillenniumFalcon list={list}
-										  onExpandToggle={onExpandToggle}
-										  selectTarget={selectTarget}
-										  loading={loading}
-										  endpoint={endpoint}
-										  side={side}
-										  expandedItems={expandedItems}
-										  target={target}
-										  sendBoba={sendBoba}
-										  kills={kills}
-										  revive={revive}
-				/> : ''}
+				{side ?
+					<div className="container table-wrapper">
+						<div className="row">
+							<MillenniumFalcon list={list}
+											  onExpandToggle={onExpandToggle}
+											  selectTarget={selectTarget}
+											  endpoint={endpoint}
+											  side={side}
+											  expandedItems={expandedItems}
+											  kills={kills}
+											  revive={revive}
+							/>
+							{side === 'dark' && endpoint !== 'films' && list.length
+								? <DarkSide loading={loading} target={target} sendBoba={sendBoba} />
+								: ''}
+						</div>
+					</div>
+					: ''}
 			</div>
 		)
 	};

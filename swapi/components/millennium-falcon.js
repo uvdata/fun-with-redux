@@ -1,6 +1,5 @@
 import React from 'react';
 import ItemDisplay from './item-display';
-import DarkSide from './dark-side';
 
 export default class MillenniumFalcon extends React.PureComponent {
 
@@ -13,19 +12,12 @@ export default class MillenniumFalcon extends React.PureComponent {
 		})).isRequired,
 		side: React.PropTypes.string,
 		endpoint: React.PropTypes.string,
-		loading: React.PropTypes.bool.isRequired,
-		target: React.PropTypes.string,
-		sendBoba: React.PropTypes.func.isRequired,
 		kills: React.PropTypes.arrayOf(React.PropTypes.string).isRequired,
 		revive: React.PropTypes.func.isRequired,
 	};
 
 	render() {
-		const {
-			loading, list, onExpandToggle, expandedItems,
-			side, endpoint, selectTarget, target, sendBoba, kills, revive
-		} = this.props;
-
+		const { list, onExpandToggle, expandedItems, side, selectTarget, kills, revive } = this.props;
 		const sortByName = (a, b) => {
 			if (a.name < b.name) {
 				return -1;
@@ -38,33 +30,24 @@ export default class MillenniumFalcon extends React.PureComponent {
 		};
 
 		return (
-			<div className="container table-wrapper">
-				<div className="row">
-					<div className="col-xs-6">
-						<table className="table">
-							<tbody>
-							{list.sort(sortByName).map((item) => (
-								<tr key={item.url}>
-									<td>
-										<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
-													 onExpandToggle={onExpandToggle}
-													 selectTarget={selectTarget}
-													 kills={kills} side={side}
-													 revive={revive}>
-											{item}
-										</ItemDisplay>
-									</td>
-								</tr>
-							))}
-							</tbody>
-						</table>
-					</div>
-					{
-						side === 'dark' && endpoint !== 'films' && list.length
-							? <DarkSide loading={loading} target={target} sendBoba={sendBoba} />
-							: ''
-					}
-				</div>
+			<div className="col-xs-6">
+				<table className="table">
+					<tbody>
+					{list.sort(sortByName).map((item) => (
+						<tr key={item.url}>
+							<td>
+								<ItemDisplay isExpanded={expandedItems.indexOf(item.url) !== -1}
+											 onExpandToggle={onExpandToggle}
+											 selectTarget={selectTarget}
+											 kills={kills} side={side}
+											 revive={revive}>
+									{item}
+								</ItemDisplay>
+							</td>
+						</tr>
+					))}
+					</tbody>
+				</table>
 			</div>
 		);
 	}
