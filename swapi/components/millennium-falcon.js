@@ -42,7 +42,10 @@ class MillenniumFalcon extends React.PureComponent {
 						{list.map(item => (
 							<tr key={item.url}>
 								<td>
-									<ItemDisplay item={item} name={item.name} kind={item.kind} />
+									<ItemDisplay
+										item={item}
+										onToggleItem={this.props.onToggleItem}
+									/>
 								</td>
 							</tr>
 						))}

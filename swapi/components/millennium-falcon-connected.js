@@ -2,7 +2,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MillenniumFalcon from '../components/millennium-falcon';
 
-import { onChooseEndpoint, onSortListData } from '../actions';
+import { onChooseEndpoint, onSortListData, onToggleItem } from '../actions';
 
 const mapStateToProps = state => {
 	const { endpoint, data } = state;
@@ -19,7 +19,8 @@ const mapDispatchToProps = dispatch => {
 	return bindActionCreators(
 		{
 			onChooseEndpoint: onChooseEndpoint,
-			onSortListData: onSortListData
+			onSortListData: onSortListData,
+			onToggleItem: onToggleItem
 		},
 		dispatch
 	);

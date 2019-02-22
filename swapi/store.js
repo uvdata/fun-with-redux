@@ -29,6 +29,22 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
+		case types.TOGGLE_ITEM: {
+			const { endpoint, url } = action.payload;
+			return {
+				...state,
+				data: {
+					[endpoint]: state.data[endpoint].map(item => {
+						if (item.url === url) {
+							return { ...item, expanded: !item.expanded };
+						} else {
+							return item;
+						}
+					})
+				}
+			};
+		}
+
 		case types.PICK_ENDPOINT: {
 			return {
 				...state,

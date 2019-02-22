@@ -16,7 +16,8 @@ export const onChooseEndpoint = endpoint => async (dispatch, getState) => {
 		const result = json.results.map(item => ({
 			...item,
 			name: item.title || item.name,
-			kind: endpoint
+			kind: endpoint,
+			expanded: false
 		}));
 
 		loadedData = loadedData.concat(result);
@@ -85,4 +86,8 @@ export const onSortListData = (endpoint, downDirection = true) => (
 			data: sortedList
 		}
 	});
+};
+
+export const onToggleItem = (endpoint, url) => dispatch => {
+	dispatch({ type: types.TOGGLE_ITEM, payload: { endpoint, url } });
 };

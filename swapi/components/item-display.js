@@ -9,19 +9,12 @@ const fontAwesomeIconMap = {
 
 class ItemDisplay extends React.PureComponent {
 	static propTypes = {
-		children: PropTypes.shape({
+		item: PropTypes.shape({
 			url: PropTypes.string.isRequired,
 			name: PropTypes.string.isRequired,
-			kind: PropTypes.string.isRequired
+			kind: PropTypes.string.isRequired,
+			expanded: PropTypes.bool.isRequired
 		})
-	};
-
-	state = {
-		isExpanded: false
-	};
-
-	handleExpandToggle = () => {
-		this.setState(state => ({ isExpanded: !state.isExpanded }));
 	};
 
 	getFontAwesomeIcon(kind) {
@@ -29,17 +22,19 @@ class ItemDisplay extends React.PureComponent {
 	}
 
 	render() {
-		const { name, kind, onExpandToggle } = this.props;
-		const { isExpanded } = this.state;
+		const {
+			item: { name, kind, url, expanded },
+			onToggleItem
+		} = this.props;
 
 		return (
 			<span>
 				<button
 					className="btn btn-xs btn-default"
-					onClick={this.handleExpandToggle}
-					aria-label={isExpanded ? 'Collapse' : 'Expand'}
+					onClick={() => onToggleItem(kind, url)}
+					aria-label={expanded ? 'Collapse' : 'Expand'}
 				>
-					{isExpanded ? (
+					{expanded ? (
 						<i className="fa fa-chevron-circle-up" />
 					) : (
 						<i className="fa fa-chevron-circle-down" />
@@ -47,8 +42,8 @@ class ItemDisplay extends React.PureComponent {
 				</button>{' '}
 				<i className={'fa fa-' + this.getFontAwesomeIcon(kind)} />
 				{name}
-				{isExpanded ? (
-					<pre>{JSON.stringify(this.props.children, null, 4)}</pre>
+				{expanded ? (
+					<pre>{JSON.stringify(this.props.item, null, 4)}</pre>
 				) : null}
 			</span>
 		);
