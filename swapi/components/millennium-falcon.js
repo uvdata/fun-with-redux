@@ -28,17 +28,27 @@ class MillenniumFalcon extends React.PureComponent {
 
 	renderItems(list) {
 		return (
-			<table className="table">
-				<tbody>
-					{list.map(item => (
-						<tr key={item.url}>
-							<td>
-								<ItemDisplay item={item} name={item.name} kind={item.kind} />
-							</td>
-						</tr>
-					))}
-				</tbody>
-			</table>
+			<div>
+				<a onClick={() => this.props.onSortListData(this.props.endpoint)}>
+					{' '}
+					<i
+						className="fa fa-sort-down fa-2x"
+						title="Sort"
+						style={{ cursor: 'pointer' }}
+					/>
+				</a>
+				<table className="table">
+					<tbody>
+						{list.map(item => (
+							<tr key={item.url}>
+								<td>
+									<ItemDisplay item={item} name={item.name} kind={item.kind} />
+								</td>
+							</tr>
+						))}
+					</tbody>
+				</table>
+			</div>
 		);
 	}
 

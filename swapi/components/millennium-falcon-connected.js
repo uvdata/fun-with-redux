@@ -1,25 +1,31 @@
-import { bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MillenniumFalcon from '../components/millennium-falcon';
 
-import { onChooseEndpoint } from '../actions';
+import { onChooseEndpoint, onSortListData } from '../actions';
 
-const mapStateToProps = (state) => {
-	const  { endpoint, data } = state;
+const mapStateToProps = state => {
+	const { endpoint, data } = state;
 
 	const list = (data && data[endpoint]) || [];
-	console.log(state.operations);
 	return {
 		list,
 		endpoint,
-		loading: state.operations > 0,
-	}
+		loading: state.operations > 0
+	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({
-		onChooseEndpoint: onChooseEndpoint,
-	}, dispatch);
+const mapDispatchToProps = dispatch => {
+	return bindActionCreators(
+		{
+			onChooseEndpoint: onChooseEndpoint,
+			onSortListData: onSortListData
+		},
+		dispatch
+	);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(MillenniumFalcon);
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(MillenniumFalcon);
