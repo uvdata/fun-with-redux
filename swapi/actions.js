@@ -13,7 +13,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 			.then((response) => response.json())
 			.then((json) => {
 				const result = json.results.map((item) => ({ ...item, name: item.title || item.name, kind: endpoint }));
-				loadedData = loadedData.concat(result);
+				loadedData = loadedData.concat(result).sort((a, b) => a.name.localeCompare(b.name) || a.title.localeCompare(b.title));
 
 				dispatch({
 					type: types.SET_DATA,
