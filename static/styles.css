@@ -1,0 +1,39 @@
+img.sabers {
+	width: 75%;
+	right: 1.2vh;
+	top: 7vh;
+	position: absolute;
+}
+
+img.sabers:active {
+	width: 65%;
+	transition: width 2s height 2s;
+}
+
+img.glow-outline-right {
+	width: 95%;
+	animation: spin-clockwise 8s linear infinite;
+	z-index: -1;
+	position: absolute;
+}
+img.glow-outline-left {
+	width: 95%;
+	animation: spin-counterclockwise 8s linear infinite;
+	z-index: -1;
+	position: absolute;
+}
+
+.money-title {
+	text-align: center;
+}
+
+@keyframes spin-clockwise {
+	100% {
+		transform: rotate(360deg);
+	}
+}
+@keyframes spin-counterclockwise {
+	100% {
+		transform: rotate(360deg);
+	}
+}

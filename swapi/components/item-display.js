@@ -14,7 +14,10 @@ class ItemDisplay extends React.PureComponent {
 			name: PropTypes.string.isRequired,
 			kind: PropTypes.string.isRequired,
 			expanded: PropTypes.bool.isRequired
-		})
+		}),
+		onToggleItem: PropTypes.func.isRequired,
+		onBuyEntity: PropTypes.func.isRequired,
+		currentMoney: PropTypes.number.isRequired
 	};
 
 	getFontAwesomeIcon(kind) {
@@ -24,8 +27,17 @@ class ItemDisplay extends React.PureComponent {
 	render() {
 		const {
 			item: { name, kind, url, expanded },
-			onToggleItem
+			item,
+			onToggleItem,
+			currentMoney
 		} = this.props;
+
+		let isAvailable = undefined;
+		if (kind === 'people') {
+			isAvailable = currentMoney >= item.mass;
+		} else if (kind === 'starships') {
+			isAvailable = currentMoney >= item.cost_in_credits;
+		}
 
 		return (
 			<span>
@@ -42,8 +54,24 @@ class ItemDisplay extends React.PureComponent {
 				</button>{' '}
 				<i className={'fa fa-' + this.getFontAwesomeIcon(kind)} />
 				{name}
+				<span className="pull-right">
+					<button
+						disabled={currentMoney < item.mass}
+						onClick={() => this.props.onBuyEntity(item, kind)}
+						className={`btn btn-xs btn-${isAvailable ? 'success' : 'default'}`}
+						title={
+							isAvailable
+								? `Buy ${item.name}`
+								: `You can't afford ${item.name} yet`
+						}
+					>
+						Buy {name}
+					</button>
+				</span>
 				{expanded ? (
-					<pre>{JSON.stringify(this.props.item, null, 4)}</pre>
+					<div>
+						<pre>{JSON.stringify(item, null, 4)}</pre>
+					</div>
 				) : null}
 			</span>
 		);

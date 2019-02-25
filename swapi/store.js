@@ -13,7 +13,12 @@ const defaultData = {
 	data: {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
-	operations: 0
+	operations: 0,
+	money: 0,
+	ownedEntities: {
+		people: [],
+		starships: []
+	}
 };
 
 const reducer = (state = {}, action) => {
@@ -29,11 +34,14 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
+		// This logic should probably be rewritten to be in the action creator to follow
+		// this projects convention
 		case types.TOGGLE_ITEM: {
 			const { endpoint, url } = action.payload;
 			return {
 				...state,
 				data: {
+					...state.data,
 					[endpoint]: state.data[endpoint].map(item => {
 						if (item.url === url) {
 							return { ...item, expanded: !item.expanded };
@@ -63,6 +71,54 @@ const reducer = (state = {}, action) => {
 			return {
 				...state,
 				operations: state.operations - 1
+			};
+		}
+
+		case types.ADD_MONEY: {
+			return {
+				...state,
+				money: state.money + action.payload
+			};
+		}
+
+		case types.SPEND_MONEY: {
+			return {
+				...state,
+				money: state.money - action.payload
+			};
+		}
+
+		case types.BUY_ENTITY: {
+			const { type, entity } = action.payload;
+			return {
+				...state,
+				ownedEntities: {
+					...state.ownedEntities,
+					[type]: [...state.ownedEntities[type], entity]
+				}
+			};
+		}
+
+		case types.LOAD_CHARACTER_INTO_SHIP: {
+			const { starship, character } = action.payload;
+			return {
+				...state,
+				ownedEntities: {
+					people: state.ownedEntities.people.map(person => {
+						if (person.id === character.id) {
+							return { ...person, inShip: true };
+						} else {
+							return person;
+						}
+					}),
+					starships: state.ownedEntities.starships.map(ship => {
+						if (ship.id === starship.id) {
+							return { ...ship, crew_people: [...ship.crew_people, character] };
+						} else {
+							return ship;
+						}
+					})
+				}
 			};
 		}
 	}

@@ -6,6 +6,8 @@ import ItemDisplay from './item-display';
 class MillenniumFalcon extends React.PureComponent {
 	static propTypes = {
 		onChooseEndpoint: PropTypes.func.isRequired,
+		onToggleItem: PropTypes.func.isRequired,
+		onBuyEntity: PropTypes.func.isRequired,
 		list: PropTypes.arrayOf(
 			PropTypes.shape({
 				url: PropTypes.string.isRequired
@@ -13,6 +15,17 @@ class MillenniumFalcon extends React.PureComponent {
 		).isRequired,
 		side: PropTypes.string
 	};
+
+	componentDidMount() {
+		setInterval(() => {
+			this.update();
+		}, 1000);
+	}
+
+	// Runs once every second
+	update() {
+		this.props.onGenerateMoney();
+	}
 
 	renderStarWarsResourceButton(endpoint, title, isLoading) {
 		return (
@@ -45,6 +58,8 @@ class MillenniumFalcon extends React.PureComponent {
 									<ItemDisplay
 										item={item}
 										onToggleItem={this.props.onToggleItem}
+										onBuyEntity={this.props.onBuyEntity}
+										currentMoney={this.props.money}
 									/>
 								</td>
 							</tr>
@@ -69,6 +84,15 @@ class MillenniumFalcon extends React.PureComponent {
 				<p>
 					<i className={iconClass} /> What do you want to see?
 				</p>
+				<div className="btn-group">
+					<button
+						className="btn btn-default"
+						onClick={() => this.props.onAddMoney(22867000)}
+					>
+						Collect a lot of credits (if waiting isn't your thing)
+					</button>
+				</div>
+				<br />
 				<div className="btn-group">
 					{this.renderStarWarsResourceButton('people', 'People', loading)}
 					{this.renderStarWarsResourceButton('films', 'Films', loading)}
