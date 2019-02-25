@@ -16,11 +16,13 @@ export default class ItemDisplay extends React.PureComponent {
 		getIconName: PropTypes.func.isRequired,
 	};
 
+	handleExpandToggle = () => this.props.onExpandToggle(this.props.children.url);
+
 	render() {
 		const { data, onExpandToggle, isExpanded, loading, getIconName } = this.props;
 
 		return (<span>
-			<button disabled={loading} className="btn btn-xs btn-default" onClick={() => onExpandToggle(this)} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
+			<button disabled={loading} className="btn btn-xs btn-default" onClick={this.handleExpandToggle} aria-label={isExpanded ? 'Collapse' : 'Expand'}>
 				{isExpanded
 					? <i className="fa fa-chevron-circle-up" />
 					: <i className="fa fa-chevron-circle-down" />}

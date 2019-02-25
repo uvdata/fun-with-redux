@@ -24,8 +24,18 @@ const mapStateToProps = (state) => {
 
 	const list = (data && data[endpoint]) || [];
 
+	const categoryList = [
+		{key: 'people', name: 'People'},
+		{key: 'films', name: 'Films'},
+		{key: 'planets', name: 'Planets'},
+		{key: 'species', name: 'Species'},
+		{key: 'starships', name: 'Starships'},
+		{key: 'vehicles', name: 'Vehicles'}
+	];
+
 	return {
 		list,
+		categoryList,
 		endpoint,
 		loading: state.operations > 0,
 		hasData: list.length > 0,

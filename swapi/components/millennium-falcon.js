@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ItemDisplayConnected from './item-display-connected';
+import CategoryDisplayConnected from './category-display-connected';
 
 export default class MillenniumFalcon extends React.PureComponent {
 
@@ -12,11 +13,20 @@ export default class MillenniumFalcon extends React.PureComponent {
 		list: PropTypes.arrayOf(PropTypes.shape({
 			url: PropTypes.string.isRequired,
 		})).isRequired,
+		categoryList: PropTypes.arrayOf(PropTypes.shape({
+			key: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired,
+		})).isRequired,
 		side: PropTypes.string,
 	};
 
+	handleOrderList = (e) => this.props.onOrderList(e.target.value);
+
+	handleExpandAll = () => this.props.onExpandAll(true);
+	handleCollapseAll = () => this.props.onExpandAll(false);
+
 	render() {
-		const { loading, hasData, list, onChooseEndpoint, onOrderList, onExpandAll, endpoint, orderOptions } = this.props;
+		const { loading, hasData, list, categoryList, onChooseEndpoint, onOrderList, onExpandAll, endpoint, orderOptions } = this.props;
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -24,28 +34,18 @@ export default class MillenniumFalcon extends React.PureComponent {
 			'fa-star': !loading,
 		});
 
-		const getEndpointButtonClassNames = (buttonEndpoint) => classNames('btn', {
-			'btn-default': endpoint != buttonEndpoint,
-			'btn-success': endpoint == buttonEndpoint
-		});
-
 		return (<div>
 			<p><i className={iconClass} /> What do you want to see?</p>
 			<div className="btn-group">
-				<button disabled={loading} onClick={() => onChooseEndpoint('people')} className={getEndpointButtonClassNames('people')}>People</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('films')} className={getEndpointButtonClassNames('films')}>Films</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('planets')} className={getEndpointButtonClassNames('planets')}>Planets</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('species')} className={getEndpointButtonClassNames('species')}>Species</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('starships')} className={getEndpointButtonClassNames('starships')}>Starships</button>
-				<button disabled={loading} onClick={() => onChooseEndpoint('vehicles')} className={getEndpointButtonClassNames('vehicles')}>Vehicles</button>
+				{categoryList.map((category) => <React.Fragment key={category.key}><CategoryDisplayConnected>{category}</CategoryDisplayConnected></React.Fragment>)}
 			</div>
 			<br /><br />
 			<div className="btn-group">
-				<button disabled={!hasData || loading} onClick={() => onExpandAll(true)} className="btn btn-default"><i className="fa fa-chevron-circle-down" /> Expand all</button>
-				<button disabled={!hasData || loading} onClick={() => onExpandAll(false)} className="btn btn-default"><i className="fa fa-chevron-circle-up" /> Collapse all</button>
+				<button disabled={!hasData || loading} onClick={this.handleExpandAll} className="btn btn-default"><i className="fa fa-chevron-circle-down" /> Expand all</button>
+				<button disabled={!hasData || loading} onClick={this.handleCollapseAll} className="btn btn-default"><i className="fa fa-chevron-circle-up" /> Collapse all</button>
 			</div>
 			<div className="btn-group">
-				<select className="form-control" disabled={!hasData || loading} onChange={(e) => onOrderList(e.target.value)}>
+				<select className="form-control" disabled={!hasData || loading} onChange={this.handleOrderList}>
 					<option defaultValue>Order by</option>
 					{orderOptions !== undefined && orderOptions.map((orderOption) => <option key={orderOption.key} value={orderOption.key}>{orderOption.key}</option>)}
 				</select>

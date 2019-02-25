@@ -57,12 +57,12 @@ const reducer = (state = {}, action) => {
 		}
 
 		case types.EXPAND_ITEM: {
-			const itemDisplay = action.itemDisplay;
+			const url = action.url;
 			const expandAll = action.expandAll;
 
 			var data = state.data[state.endpoint];
 			data = data.map((item) => {
-				if (itemDisplay !== undefined && item.url === itemDisplay.props.children.url) {
+				if (url !== undefined && item.url === url) {
 					item = Object.assign({}, item);
 					item.isExpanded = item.isExpanded !== true;
 				}

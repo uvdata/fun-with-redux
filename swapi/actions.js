@@ -111,12 +111,12 @@ export const onOrderList = (selectedKey) => (dispatch, getState) => {
 	dispatch({ type: types.DONE_LOAD });
 };
 
-export const onExpandToggle = (itemDisplay) => (dispatch, getState) => {
+export const onExpandToggle = (url) => (dispatch, getState) => {
 	dispatch({ type: types.START_LOAD });
 
 	dispatch({
 		type: types.EXPAND_ITEM,
-		itemDisplay: itemDisplay,
+		url: url,
 	});
 
 	dispatch({ type: types.DONE_LOAD });
