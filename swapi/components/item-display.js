@@ -28,7 +28,7 @@ export default class ItemDisplay extends React.PureComponent {
 			{' '}
 			<i className={classNames('fa', getIconName(data))} />
 			{' '}
-			{data.kind === 'films' ? 'Episode ' + data.episode_id + ': ' : null}
+			{data.kind === 'films' ? `Episode ${data.episode_id}: ` : null}
 			{data.name}
 			{isExpanded ? <pre>{JSON.stringify(data, null, 4)}</pre> : null}
 		</span>);

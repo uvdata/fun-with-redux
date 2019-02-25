@@ -3,7 +3,7 @@ import * as types from './types';
 const sleep = (seconds, withValue) => new Promise(resolve => setTimeout(resolve, seconds * 1000, withValue));
 
 export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
-	const url = 'https://swapi.co/api/' + endpoint + '/';
+	const url = `https://swapi.co/api/${endpoint}/`;
 
 	dispatch({ type: types.PICK_ENDPOINT, payload: endpoint });
 	dispatch({ type: types.START_LOAD });
