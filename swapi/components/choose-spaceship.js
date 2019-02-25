@@ -23,7 +23,7 @@ class ChooseSpacshipModal extends Component {
 
 	renderTable() {
 		return (
-			<table className="table" style={{ overflow: 'scroll' }}>
+			<table className="table">
 				<tbody>
 					{this.props.ownedEntities.people.map(person => {
 						if (!person.inShip) {
@@ -54,12 +54,10 @@ class ChooseSpacshipModal extends Component {
 	render() {
 		return (
 			<div>
-				<div className="row" style={{ width: 'fit-content' }}>
+				<div className="row crew-chooser">
 					Who do you want to load into {this.props.activeShip.name}?
 				</div>
-				<div className="row" style={{ width: 'fit-content' }}>
-					{this.renderTable()}
-				</div>
+				<div className="row crew-chooser">{this.renderTable()}</div>
 				<div className="row">
 					<button className="btn btn-success" onClick={this.props.onCloseClick}>
 						Close

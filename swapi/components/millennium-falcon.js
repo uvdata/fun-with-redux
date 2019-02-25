@@ -31,13 +31,13 @@ class MillenniumFalcon extends React.PureComponent {
 	renderItems(list) {
 		return (
 			<div>
-				<a onClick={() => this.props.onSortListData(this.props.endpoint)}>
-					<i
-						className="fa fa-sort-down fa-2x"
-						title="Sort"
-						style={{ cursor: 'pointer' }}
-					/>
-				</a>
+				<button
+					className="btn btn-default btn-xs"
+					type="button"
+					onClick={() => this.props.onSortListData(this.props.endpoint)}
+				>
+					Sort by name <i className="fa fa-sort-down fa-lg" title="Sort" />
+				</button>
 				<table className="table">
 					<tbody>
 						{list.map(item => (

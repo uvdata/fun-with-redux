@@ -63,6 +63,7 @@ export const onSortListData = (endpoint, downDirection = true) => (
 	dispatch,
 	getState
 ) => {
+	if (!endpoint) return;
 	const list = [...getState().data[endpoint]];
 	if (!list) {
 		return;
