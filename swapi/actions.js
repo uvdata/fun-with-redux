@@ -79,12 +79,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 	if (isCached())
 		return;
 
-	return loadData(url)
-		.catch((err) => {
-			console.error(err);
-			alert('It went wrong.')
-		})
-		.then(() => loadSchema(url))
+	return Promise.all([loadData(url), loadSchema(url)])
 		.catch((err) => {
 			console.error(err);
 			alert('It went wrong.')
