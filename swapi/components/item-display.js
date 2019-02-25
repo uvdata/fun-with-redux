@@ -24,9 +24,11 @@ export default class ItemDisplay extends React.PureComponent {
 					: <i className="fa fa-chevron-circle-down" />}
 			</button>
 			{' '}
+			{kind == 'people' ? <i className="fa fa-users" /> : <i className="fa fa-film" />}
+			{' '}
 			{name}
 			{ isExpanded ? <pre>{JSON.stringify(this.props.children, null, 4)}</pre> : null}
-			<div className={kind}>{kind}</div>
+			
 		</span>);
 	}
 }
