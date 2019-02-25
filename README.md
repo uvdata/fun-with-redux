@@ -28,7 +28,6 @@ PM2 can be inspected using the following commands (from the PM2 documentation):
 
 - `git clone <repository-url>` this repository
 - `cd fun-with-redux`
-- `yarn install`
 - `docker build -t <app name> .`
 - `docker run -p <host port>:3000 <app name>`
 
