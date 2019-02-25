@@ -44,7 +44,9 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 };
 
 export const onExpandItem = (itemId, expanded) => (dispatch) => {
-	if (expanded) {
+	console.log('itemId', itemId);
+	console.log('expanded', expanded);
+	if (!expanded) {
 		dispatch ({
 			type: types.EXPAND_ITEM,
 			payload: itemId

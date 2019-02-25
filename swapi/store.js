@@ -8,9 +8,12 @@ const defaultData = {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
 	operations: 0,
+	expandedItems: []
 };
 
 const reducer = (state = {}, action) => {
+	console.log('reducer', action);
+	console.log('state', state);
 	switch(action.type) {
 		case types.SET_DATA: {
 			const { endpoint, data } = action.payload;
@@ -47,14 +50,14 @@ const reducer = (state = {}, action) => {
 		case types.EXPAND_ITEM: {
 			return {
 				...state,
-				expanded: action.payload
+				expandedItems: [...state.expandedItems, action.payload]
 			}
 		}
 		
 		case types.COLLAPSE_ITEM: {
 			return {
 				...state,
-				expanded: action.payload
+				expandedItems: state.expandedItems.filter(itemId => itemId !== action.payload)
 			}
 		}	
 	}
