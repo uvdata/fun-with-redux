@@ -8,12 +8,11 @@ const defaultData = {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
 	operations: 0,
-	expandedItems: []
+	expandedItems: [],
+	model: {}
 };
 
 const reducer = (state = {}, action) => {
-	console.log('reducer', action);
-	console.log('state', state);
 	switch(action.type) {
 		case types.SET_DATA: {
 			const { endpoint, data } = action.payload;
@@ -59,7 +58,17 @@ const reducer = (state = {}, action) => {
 				...state,
 				expandedItems: state.expandedItems.filter(itemId => itemId !== action.payload)
 			}
-		}	
+		}
+
+		case types.UPDATE_MODEL: {
+			var obj = state.model;
+			obj[action.payload] = state.data[state.endpoint];
+
+			state = {
+				...state,
+				model: state.model = obj
+			}
+		}
 	}
 
 	return state;
