@@ -43,6 +43,30 @@ const reducer = (state = {}, action) => {
 				operations: state.operations - 1,
 			}
 		}
+
+		case types.TOGGLE_EXPAND_ITEM: {
+			return {
+				...state,
+				data: {
+					...state.data,
+					[state.endpoint]: state.data[state.endpoint].map(item => item.url === action.payload ? { ...item, expanded: !item.expanded } : item)
+				}
+			}
+			
+		}
+
+		case types.MERGE_LISTS: {
+			return {
+				...state,
+				data: {
+					...state.data,
+					[action.payload]: state.data.films.map(film => ({ ...film, charactersNames: film.characters.map(character => ({
+						name: state.data.people.filter(person => person.url === character)[0].name
+					})).sort((a, b) => (a.name.toString()).localeCompare(b.name.toString(), 'en')) }))
+				}
+			}
+			
+		}
 	}
 
 	return state;
