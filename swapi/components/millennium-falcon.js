@@ -22,12 +22,14 @@ class MillenniumFalcon extends React.PureComponent {
 			this.update();
 		}, 1000);
 		this.props.onLoadFromLocalStorage(localStorage.getItem('redux-money'));
+		this.defaultTitle = document.title;
 	}
 
 	// Runs once every second
 	update() {
 		this.props.onGenerateMoney();
 		localStorage.setItem('redux-money', this.props.money);
+		document.title = `${this.props.money} credits - ${this.defaultTitle}`;
 	}
 
 	renderStarWarsResourceButton(endpoint, title, isLoading) {
