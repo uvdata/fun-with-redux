@@ -8,7 +8,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 	dispatch({ type: types.PICK_ENDPOINT, payload: endpoint });
 	dispatch({ type: types.START_LOAD });
 
-	function isCached() {
+	const isCached = () => {
 		var current_state = getState();
 		var data = current_state.data[endpoint];
 
@@ -28,7 +28,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 		return true;
 	}
 
-	function loadData(url, loadedData = []) {
+	const loadData = (url, loadedData = []) => {
 		dispatch({ type: types.START_LOAD });
 
 		return fetch(url)
@@ -57,7 +57,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 
 	}
 
-	function loadSchema(url) {
+	const loadSchema = (url) => {
 		dispatch({ type: types.START_LOAD });
 
 		return fetch(url + 'schema')
