@@ -16,8 +16,6 @@ export default class ItemDisplay extends React.PureComponent {
 	render() {
 		const { children: { name, url }, onExpandItem, isExpanded} = this.props;
 		const kind = this.props.children.kind;
-		
-		console.log('itemDisplay', this.props);
 
 		return (<span>
 			<button className="btn btn-xs btn-default" onClick={() => onExpandItem(url, isExpanded)} aria-label={isExpanded ? 'Collapse' : 'Expand'}>

@@ -39,8 +39,6 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 						type: types.UPDATE_MODEL,
 						payload: url
 					});
-					
-					console.log('done', loadedData);
 
 					return loadedData;
 				})
@@ -57,8 +55,6 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 };
 
 export const onExpandItem = (itemId, expanded) => (dispatch) => {
-	console.log('itemId', itemId);
-	console.log('expanded', expanded);
 	if (!expanded) {
 		dispatch ({
 			type: types.EXPAND_ITEM,

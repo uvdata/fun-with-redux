@@ -7,13 +7,8 @@ import { onExpandItem } from '../actions';
 
 const mapStateToProps = (state) => {
 	const  { endpoint, data, expandedItems } = state;
-
 	const list = (data && data[endpoint]) || [];
-	//console.log(state.operations);
-	//console.log('data', data);
-	//console.log('list', list);
-	//console.log('onExpandItem', onExpandItem);
-	console.log('expandedItems', state.expandedItems);
+
 	return {
 		list,
 		endpoint,

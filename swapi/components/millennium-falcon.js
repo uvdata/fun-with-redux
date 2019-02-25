@@ -17,7 +17,6 @@ export default class MillenniumFalcon extends React.PureComponent {
 
 	render() {
 		const { loading, list, onChooseEndpoint, onExpandItem, expandedItems } = this.props;
-		console.log('props', this.props);
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -34,7 +33,6 @@ export default class MillenniumFalcon extends React.PureComponent {
 			<br /><br />
 			<table className="table">
 				<tbody>
-				{ console.log('expandedItems', expandedItems) }
 					{list.map((item) => <tr key={item.url}><td><ItemDisplay onExpandItem={onExpandItem} isExpanded={expandedItems.includes(item.url)}>{item}</ItemDisplay></td></tr>)}
 				</tbody>
 			</table>
