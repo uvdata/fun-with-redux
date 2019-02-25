@@ -42,3 +42,17 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 		})
 		.then(() => dispatch({ type: types.DONE_LOAD }))
 };
+
+export const onExpandItem = (itemId, expanded) => (dispatch) => {
+	if (expanded) {
+		dispatch ({
+			type: types.EXPAND_ITEM,
+			payload: itemId
+		})
+	} else {
+		dispatch ({
+			type: types.COLLAPSE_ITEM,
+			payload: itemId
+		})
+	}
+};

@@ -43,6 +43,20 @@ const reducer = (state = {}, action) => {
 				operations: state.operations - 1,
 			}
 		}
+		
+		case types.EXPAND_ITEM: {
+			return {
+				...state,
+				expanded: action.payload
+			}
+		}
+		
+		case types.COLLAPSE_ITEM: {
+			return {
+				...state,
+				expanded: action.payload
+			}
+		}	
 	}
 
 	return state;
