@@ -17,7 +17,7 @@ class ItemDisplay extends React.PureComponent {
 		}),
 		onToggleItem: PropTypes.func.isRequired,
 		onBuyEntity: PropTypes.func.isRequired,
-		currentMoney: PropTypes.number.isRequired
+		isAvailable: PropTypes.bool.isRequired
 	};
 
 	getFontAwesomeIcon(kind) {
@@ -29,15 +29,8 @@ class ItemDisplay extends React.PureComponent {
 			item: { name, kind, url, expanded },
 			item,
 			onToggleItem,
-			currentMoney
+			isAvailable
 		} = this.props;
-
-		let isAvailable = undefined;
-		if (kind === 'people') {
-			isAvailable = currentMoney >= item.mass;
-		} else if (kind === 'starships') {
-			isAvailable = currentMoney >= item.cost_in_credits;
-		}
 
 		return (
 			<span>
@@ -51,12 +44,12 @@ class ItemDisplay extends React.PureComponent {
 					) : (
 						<i className="fa fa-chevron-circle-down" />
 					)}
-				</button>{' '}
+				</button>
 				<i className={'fa fa-' + this.getFontAwesomeIcon(kind)} />
 				{name}
 				<span className="pull-right">
 					<button
-						disabled={currentMoney < item.mass}
+						disabled={!isAvailable}
 						onClick={() => this.props.onBuyEntity(item, kind)}
 						className={`btn btn-xs btn-${isAvailable ? 'success' : 'default'}`}
 						title={

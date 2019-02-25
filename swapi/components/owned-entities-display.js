@@ -1,8 +1,24 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ChooseSpaceshipModal from './choose-spaceship';
 
 class OwnedEntitiesDisplay extends Component {
+	static propTypes = {
+		ownedEntities: PropTypes.shape({
+			people: PropTypes.arrayOf(
+				PropTypes.shape({
+					name: PropTypes.string.isRequired
+				})
+			),
+			starships: PropTypes.arrayOf(
+				PropTypes.shape({
+					crew_people: PropTypes.any.isRequired
+				})
+			)
+		}).isRequired
+	};
+
 	state = {
 		showChooser: false,
 		activeShip: {}
@@ -39,9 +55,8 @@ class OwnedEntitiesDisplay extends Component {
 					{Object.keys(uniquePeople).map(ent => {
 						return (
 							<li key={ent}>
-								{ent}: {uniquePeople[ent].count}({uniquePeople[ent].inShipCount}
-								{'  '}
-								in a starship)
+								{ent}: {uniquePeople[ent].count} (
+								{uniquePeople[ent].inShipCount} in a starship)
 							</li>
 						);
 					})}

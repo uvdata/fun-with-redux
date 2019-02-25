@@ -31,8 +31,6 @@ export default connect(
 		onSortListData: onSortListData,
 		onToggleItem: onToggleItem,
 		onAddMoney: onAddMoney,
-		onBuyEntity: onBuyEntity,
-		onGenerateMoney: onGenerateMoney,
-		onLoadFromLocalStorage: onLoadFromLocalStorage
+		onBuyEntity: onBuyEntity
 	}
 )(MillenniumFalcon);

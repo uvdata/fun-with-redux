@@ -1,13 +1,12 @@
 img.sabers {
 	width: 75%;
-	right: 1.2vh;
-	top: 7vh;
+	right: 1em;
+	top: 5em;
 	position: absolute;
 }
 
 img.sabers:active {
-	width: 65%;
-	transition: width 2s height 2s;
+	transform: scale(0.85, 0.85);
 }
 
 img.glow-outline-right {

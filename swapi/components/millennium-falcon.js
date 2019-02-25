@@ -8,29 +8,13 @@ class MillenniumFalcon extends React.PureComponent {
 		onChooseEndpoint: PropTypes.func.isRequired,
 		onToggleItem: PropTypes.func.isRequired,
 		onBuyEntity: PropTypes.func.isRequired,
-		onLoadFromLocalStorage: PropTypes.func.isRequired,
 		list: PropTypes.arrayOf(
 			PropTypes.shape({
 				url: PropTypes.string.isRequired
 			})
 		).isRequired,
-		side: PropTypes.string
+		money: PropTypes.number.isRequired
 	};
-
-	componentDidMount() {
-		setInterval(() => {
-			this.update();
-		}, 1000);
-		this.props.onLoadFromLocalStorage(localStorage.getItem('redux-money'));
-		this.defaultTitle = document.title;
-	}
-
-	// Runs once every second
-	update() {
-		this.props.onGenerateMoney();
-		localStorage.setItem('redux-money', this.props.money);
-		document.title = `${this.props.money} credits - ${this.defaultTitle}`;
-	}
 
 	renderStarWarsResourceButton(endpoint, title, isLoading) {
 		return (
@@ -48,7 +32,6 @@ class MillenniumFalcon extends React.PureComponent {
 		return (
 			<div>
 				<a onClick={() => this.props.onSortListData(this.props.endpoint)}>
-					{' '}
 					<i
 						className="fa fa-sort-down fa-2x"
 						title="Sort"
@@ -64,7 +47,7 @@ class MillenniumFalcon extends React.PureComponent {
 										item={item}
 										onToggleItem={this.props.onToggleItem}
 										onBuyEntity={this.props.onBuyEntity}
-										currentMoney={this.props.money}
+										isAvailable={this.getAvailableState(item)} // Get availability state here to avoid excessive rerendering
 									/>
 								</td>
 							</tr>
@@ -73,6 +56,15 @@ class MillenniumFalcon extends React.PureComponent {
 				</table>
 			</div>
 		);
+	}
+
+	getAvailableState(item) {
+		const { money } = this.props;
+		if (item.kind === 'people') {
+			return money >= item.mass;
+		} else if (item.kind === 'starships') {
+			return money >= item.cost_in_credits;
+		}
 	}
 
 	render() {
@@ -100,8 +92,8 @@ class MillenniumFalcon extends React.PureComponent {
 				<br />
 				<div className="btn-group">
 					{this.renderStarWarsResourceButton('people', 'People', loading)}
-					{this.renderStarWarsResourceButton('films', 'Films', loading)}
 					{this.renderStarWarsResourceButton('starships', 'Starships', loading)}
+					{this.renderStarWarsResourceButton('films', 'Films', loading)}
 				</div>
 				<br />
 				<br />

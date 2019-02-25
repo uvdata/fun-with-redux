@@ -1,9 +1,36 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { onAddMoney, onGenerateMoney } from '../actions';
+import {
+	onAddMoney,
+	onGenerateMoney,
+	onLoadFromLocalStorage
+} from '../actions';
 
 class SabersClicker extends Component {
+	static propTypes = {
+		money: PropTypes.number.isRequired,
+		onAddMoney: PropTypes.func.isRequired,
+		onGenerateMoney: PropTypes.func.isRequired,
+		onLoadFromLocalStorage: PropTypes.func.isRequired
+	};
+
+	componentDidMount() {
+		setInterval(() => {
+			this.update();
+		}, 1000);
+		this.props.onLoadFromLocalStorage(localStorage.getItem('redux-money'));
+		this.defaultTitle = document.title;
+	}
+
+	// Runs once every second
+	update() {
+		this.props.onGenerateMoney();
+		localStorage.setItem('redux-money', this.props.money);
+		document.title = `${this.props.money} credits - ${this.defaultTitle}`;
+	}
+
 	render() {
 		return (
 			<div>
@@ -32,5 +59,5 @@ const mapStateToProps = state => {
 
 export default connect(
 	mapStateToProps,
-	{ onAddMoney, onGenerateMoney }
+	{ onAddMoney, onGenerateMoney, onLoadFromLocalStorage }
 )(SabersClicker);
