@@ -14,14 +14,15 @@ Furthermore, Redux Dev Tools is wired up.
 
 Finally, the included Dockerfile runs through [pm2](http://pm2.keymetrics.io/) and exposes to 3008. This is under the assumption that a reverse proxy running on the host or in another container will pick the port up.
 PM2 can be inspected using the following commands (from the PM2 documentation):
-**Monitoring CPU/Usage of each process**
-docker exec -it <container-id> pm2 monit
-**Listing managed processes**
-docker exec -it <container-id> pm2 list
-**Get more information about a process**
-docker exec -it <container-id> pm2 show
-**0sec downtime reload all applications**
-docker exec -it <container-id> pm2 reload all
+
+- **Monitoring CPU/Usage of each process**\
+  `docker exec -it <container-id> pm2 monit`
+- **Listing managed processes**\
+  `docker exec -it <container-id> pm2 list`
+- **Get more information about a process**\
+  `docker exec -it <container-id> pm2 show`
+- **0sec downtime reload all applications**\
+  `docker exec -it <container-id> pm2 reload all`
 
 ### Building / Deployment
 
