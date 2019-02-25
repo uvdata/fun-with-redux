@@ -1,8 +1,5 @@
 import * as types from './types';
 
-const sleep = (seconds, withValue) =>
-	new Promise(resolve => setTimeout(resolve, seconds * 1000, withValue));
-
 export const onChooseEndpoint = endpoint => async (dispatch, getState) => {
 	dispatch({ type: types.PICK_ENDPOINT, payload: endpoint });
 	dispatch({ type: types.START_LOAD });
@@ -20,7 +17,7 @@ export const onChooseEndpoint = endpoint => async (dispatch, getState) => {
 			expanded: false
 		}));
 
-		if (getState().data[endpoint] !== undefined) {
+		if (getState().data.hasOwnProperty(endpoint)) {
 			// Using getState() to avoid overriding the expanded state
 			loadedData = [...getState().data[endpoint], ...result];
 		} else {
@@ -38,7 +35,7 @@ export const onChooseEndpoint = endpoint => async (dispatch, getState) => {
 		dispatch({ type: types.DONE_LOAD });
 
 		if (json.next) {
-			return sleep(0.1).then(() => loadData(json.next, loadedData));
+			return await loadData(json.next, loadedData);
 		}
 
 		return loadedData;
@@ -103,7 +100,9 @@ export const onLoadFromLocalStorage = payload => dispatch => {
 export const onBuyEntity = (entity, kind) => (dispatch, getState) => {
 	let moneyToSpend = kind === 'people' ? entity.mass : entity.cost_in_credits;
 	moneyToSpend = parseInt(moneyToSpend);
-	if (getState().money >= moneyToSpend) {
+
+	const { money } = getState();
+	if (money >= moneyToSpend) {
 		// Create an ID so we later on can distinguish between possible duplicate characters/ships
 		let newEntity = { ...entity };
 		newEntity.id = new Date().getTime();
@@ -116,7 +115,7 @@ export const onBuyEntity = (entity, kind) => (dispatch, getState) => {
 			payload: { type: kind, entity: newEntity }
 		});
 	} else {
-		console.log('no money');
+		console.log('Not enough money to buy this character');
 	}
 };
 
@@ -136,14 +135,15 @@ export const onAddMoney = moneyToAdd => dispatch => {
 
 export const onGenerateMoney = () => (dispatch, getState) => {
 	const defaultMoney = 1;
-	let computedMoney = 0;
 	const defaultHeight = 2;
+	let computedMoney = 0;
 
 	// We generate money based on the peoples 'weight' multiplied by the ship they are in's max_atmosphering_speed
 	// Get all characters not in a ship (max 3 per ship)
-	let moneyFromShips = 0;
 	const { ownedEntities } = getState();
 
+	// Credits from ships
+	let moneyFromShips = 0;
 	ownedEntities.starships.forEach(ship => {
 		let shipMultiplier = ship.max_atmosphering_speed;
 		if (shipMultiplier === 'unknown' || shipMultiplier === 'n/a') {
@@ -152,14 +152,17 @@ export const onGenerateMoney = () => (dispatch, getState) => {
 			shipMultiplier = parseInt(shipMultiplier);
 		}
 		ship.crew_people.forEach(crewMember => {
-			let height =
-				crewMember.height === 'unknown'
-					? defaultHeight
-					: parseInt(crewMember.height);
+			let height = crewMember.height;
+			if (height === 'unknown' || height === 'n/a') {
+				height = defaultHeight;
+			} else {
+				height = parseInt(crewMember.height / 10);
+			}
 			moneyFromShips += height * shipMultiplier;
 		});
 	});
 
+	// Credits from people
 	let moneyFromPeople = 0;
 	const peopleNotInShips = ownedEntities.people.filter(p => !p.inShip);
 

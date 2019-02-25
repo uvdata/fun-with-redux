@@ -138,5 +138,5 @@ const reducer = (state = {}, action) => {
 export default createStore(
 	reducer,
 	defaultData,
-	applyMiddleware(thunkMiddleware)
+	composeEnhancers(applyMiddleware(thunkMiddleware))
 );
