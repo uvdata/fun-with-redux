@@ -7,6 +7,7 @@ const defaultData = {
 	data: {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
+	schema: {},
 	operations: 0,
 };
 
@@ -18,6 +19,17 @@ const reducer = (state = {}, action) => {
 				...state,
 				data: {
 					...state.data,
+					[endpoint]: data,
+				}
+			}
+		}
+
+		case types.SET_SCHEMA: {
+			const { endpoint, data } = action.payload;
+			return {
+				...state,
+				schema: {
+					...state.schema,
 					[endpoint]: data,
 				}
 			}
@@ -41,6 +53,32 @@ const reducer = (state = {}, action) => {
 			return {
 				...state,
 				operations: state.operations - 1,
+			}
+		}
+
+		case types.EXPAND_ITEM: {
+			const url = action.url;
+			const expandAll = action.expandAll;
+
+			var data = state.data[state.endpoint];
+			data = data.map((item) => {
+				if (url !== undefined && item.url === url) {
+					item = Object.assign({}, item);
+					item.isExpanded = item.isExpanded !== true;
+				}
+				else if (expandAll !== undefined && (item.isExpanded === true) !== expandAll) {
+					item = Object.assign({}, item);
+					item.isExpanded = expandAll === true;
+				}
+				return item;
+			});
+
+			return {
+				...state,
+				data: {
+					...state.data,
+					[state.endpoint]: data
+				}
 			}
 		}
 	}
