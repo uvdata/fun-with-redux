@@ -96,6 +96,9 @@ export const onSortListData = (endpoint, downDirection = true) => (
 export const onToggleItem = (endpoint, url) => dispatch => {
 	dispatch({ type: types.TOGGLE_ITEM, payload: { endpoint, url } });
 };
+export const onLoadFromLocalStorage = payload => dispatch => {
+	dispatch({ type: types.LOAD_FROM_LOCALSTORAGE, payload });
+};
 
 export const onBuyEntity = (entity, kind) => (dispatch, getState) => {
 	let moneyToSpend = kind === 'people' ? entity.mass : entity.cost_in_credits;

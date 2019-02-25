@@ -8,7 +8,7 @@ const composeEnhancers =
 		window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
 	compose;
 
-const defaultData = {
+let defaultData = {
 	endpoint: null,
 	data: {
 		/** will contain response from SWAPI, indexed by endpiont */
@@ -32,6 +32,15 @@ const reducer = (state = {}, action) => {
 					[endpoint]: data
 				}
 			};
+		}
+
+		case types.LOAD_FROM_LOCALSTORAGE: {
+			if (!isNaN(parseInt(action.payload))) {
+				return {
+					...state,
+					money: parseInt(action.payload)
+				};
+			}
 		}
 
 		// This logic should probably be rewritten to be in the action creator to follow
@@ -129,5 +138,5 @@ const reducer = (state = {}, action) => {
 export default createStore(
 	reducer,
 	defaultData,
-	composeEnhancers(applyMiddleware(thunkMiddleware))
+	applyMiddleware(thunkMiddleware)
 );

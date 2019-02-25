@@ -8,7 +8,8 @@ import {
 	onToggleItem,
 	onAddMoney,
 	onBuyEntity,
-	onGenerateMoney
+	onGenerateMoney,
+	onLoadFromLocalStorage
 } from '../actions';
 
 const mapStateToProps = state => {
@@ -31,6 +32,7 @@ export default connect(
 		onToggleItem: onToggleItem,
 		onAddMoney: onAddMoney,
 		onBuyEntity: onBuyEntity,
-		onGenerateMoney: onGenerateMoney
+		onGenerateMoney: onGenerateMoney,
+		onLoadFromLocalStorage: onLoadFromLocalStorage
 	}
 )(MillenniumFalcon);

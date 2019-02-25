@@ -7,10 +7,12 @@ class OwnedEntitiesDisplay extends Component {
 		showChooser: false,
 		activeShip: {}
 	};
-	handleCloseChooser = () =>
+	handleCloseChooser = () => {
 		this.setState({ showChooser: false, activeShip: {} });
-	handleOpenChooser = ship =>
+	};
+	handleOpenChooser = ship => {
 		this.setState({ showChooser: true, activeShip: ship });
+	};
 
 	render() {
 		return (

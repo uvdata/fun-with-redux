@@ -8,6 +8,7 @@ class MillenniumFalcon extends React.PureComponent {
 		onChooseEndpoint: PropTypes.func.isRequired,
 		onToggleItem: PropTypes.func.isRequired,
 		onBuyEntity: PropTypes.func.isRequired,
+		onLoadFromLocalStorage: PropTypes.func.isRequired,
 		list: PropTypes.arrayOf(
 			PropTypes.shape({
 				url: PropTypes.string.isRequired
@@ -20,11 +21,13 @@ class MillenniumFalcon extends React.PureComponent {
 		setInterval(() => {
 			this.update();
 		}, 1000);
+		this.props.onLoadFromLocalStorage(localStorage.getItem('redux-money'));
 	}
 
 	// Runs once every second
 	update() {
 		this.props.onGenerateMoney();
+		localStorage.setItem('redux-money', this.props.money);
 	}
 
 	renderStarWarsResourceButton(endpoint, title, isLoading) {
