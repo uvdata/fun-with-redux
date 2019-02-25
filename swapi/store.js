@@ -40,6 +40,10 @@ const reducer = (state = {}, action) => {
 					...state,
 					money: parseInt(action.payload)
 				};
+			} else {
+				return {
+					...state
+				};
 			}
 		}
 
