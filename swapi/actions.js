@@ -98,7 +98,7 @@ export const onOrderList = (selectedKey) => (dispatch, getState) => {
 	var current_state = getState();
 
 	var data = [].concat(current_state.data[current_state.endpoint]);
-	data.sort((a, b) => (a[selectedKey].toString()).localeCompare(b[selectedKey].toString()));
+	data.sort((a, b) => ((a[selectedKey] || '').toString()).localeCompare((b[selectedKey] || '').toString(), 'en', {sensitivity: 'base'}));
 
 	dispatch({
 		type: types.SET_DATA,
