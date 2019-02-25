@@ -9,12 +9,12 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 	function loadData(url, loadedData = []) {
 		dispatch({ type: types.START_LOAD });
 		
-		if (url in getState().model) {
+		/*if (url in getState().model) {
 			loadedData = getState().model.url
 			endpoint = 'films';
 			
 			return loadedData;
-		} else {
+		} else {*/
 			return fetch(url)
 				.then((response) => response.json())
 				.then((json) => {
@@ -45,7 +45,7 @@ export const onChooseEndpoint = (endpoint) => (dispatch, getState) => {
 					return loadedData;
 				})
 				.catch(() => console.error('Oops'))
-		}
+		//}
 	}
 	
 	return loadData('https://swapi.co/api/' + endpoint + '/')
