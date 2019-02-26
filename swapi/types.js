@@ -6,9 +6,8 @@ export const DONE_LOAD = 'DONE_LOAD';
 export const TOGGLE_ITEM = 'TOGGLE_ITEM';
 
 export const ADD_MONEY = 'ADD_MONEY';
-export const SPEND_MONEY = 'SPEND_MONEY';
+export const SPEND_MONEY_AND_BUY_ENTITY = 'SPEND_MONEY_AND_BUY_ENTITY';
 
-export const BUY_ENTITY = 'BUY_ENTITY';
 export const LOAD_CHARACTER_INTO_SHIP = 'LOAD_CHARACTER_INTO_SHIP';
 
-export const LOAD_FROM_LOCALSTORAGE = 'LOAD_FROM_LOCALSTORAGE';
+export const SET_MONEY = 'SET_MONEY';

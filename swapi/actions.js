@@ -65,18 +65,15 @@ export const onSortListData = (endpoint, downDirection = true) => (
 ) => {
 	if (!endpoint) return;
 	const list = [...getState().data[endpoint]];
-	if (!list) {
+	if (!list.length === 0) {
 		return;
 	}
 
 	const sortedList = list.sort((n, m) => {
-		let propA = n.name || n.title;
-		let propB = m.name || m.title;
-
-		if (propA < propB) {
+		if (n.name < m.name) {
 			return downDirection ? -1 : 1;
 		}
-		if (propB > propA) {
+		if (m.name > n.name) {
 			return downDirection ? 1 : -1;
 		}
 		return 0;
@@ -95,7 +92,7 @@ export const onToggleItem = (endpoint, url) => dispatch => {
 	dispatch({ type: types.TOGGLE_ITEM, payload: { endpoint, url } });
 };
 export const onLoadFromLocalStorage = payload => dispatch => {
-	dispatch({ type: types.LOAD_FROM_LOCALSTORAGE, payload });
+	dispatch({ type: types.SET_MONEY, payload });
 };
 
 export const onBuyEntity = (entity, kind) => (dispatch, getState) => {
@@ -110,10 +107,9 @@ export const onBuyEntity = (entity, kind) => (dispatch, getState) => {
 		if (kind === 'starships') {
 			newEntity.crew_people = [];
 		}
-		dispatch({ type: types.SPEND_MONEY, payload: moneyToSpend });
 		dispatch({
-			type: types.BUY_ENTITY,
-			payload: { type: kind, entity: newEntity }
+			type: types.SPEND_MONEY_AND_BUY_ENTITY,
+			payload: { type: kind, entity: newEntity, moneyToSpend: moneyToSpend }
 		});
 	} else {
 		console.log('Not enough money to buy this character');

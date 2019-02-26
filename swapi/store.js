@@ -34,7 +34,7 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
-		case types.LOAD_FROM_LOCALSTORAGE: {
+		case types.SET_MONEY: {
 			if (!isNaN(parseInt(action.payload))) {
 				return {
 					...state,
@@ -94,17 +94,11 @@ const reducer = (state = {}, action) => {
 			};
 		}
 
-		case types.SPEND_MONEY: {
+		case types.SPEND_MONEY_AND_BUY_ENTITY: {
+			const { type, entity, moneyToSpend } = action.payload;
 			return {
 				...state,
-				money: state.money - action.payload
-			};
-		}
-
-		case types.BUY_ENTITY: {
-			const { type, entity } = action.payload;
-			return {
-				...state,
+				money: state.money - moneyToSpend,
 				ownedEntities: {
 					...state.ownedEntities,
 					[type]: [...state.ownedEntities[type], entity]
