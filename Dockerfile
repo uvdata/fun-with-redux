@@ -15,6 +15,6 @@ ENV NPM_CONFIG_LOGLEVEL warn
 RUN yarn install --production
 RUN npm build
 
-EXPOSE 80 443 43554 3000
+EXPOSE 43554 3000
 
 CMD [ "pm2-runtime", "start", "pm2.json"]

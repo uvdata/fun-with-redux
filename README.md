@@ -12,7 +12,7 @@ The accumulated credits are saved to LocalStorage, however the owned characters 
 
 Furthermore, Redux Dev Tools is wired up.
 
-Finally, the included Dockerfile runs through [pm2](http://pm2.keymetrics.io/) and exposes to 3008. This is under the assumption that a reverse proxy running on the host or in another container will pick the port up.
+Finally, the included Dockerfile runs through [pm2](http://pm2.keymetrics.io/) and exposes to 3000. This is under the assumption that a reverse proxy running on the host or in another container will pick the port up.
 PM2 can be inspected using the following commands (from the PM2 documentation):
 
 - **Monitoring CPU/Usage of each process**\
