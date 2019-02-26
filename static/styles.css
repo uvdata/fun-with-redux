@@ -26,10 +26,6 @@ img.glow-outline-left {
 	text-align: center;
 }
 
-.crew-chooser {
-	width: "fit-content";
-}
-
 @keyframes spin-clockwise {
 	100% {
 		transform: rotate(360deg);
@@ -37,6 +33,6 @@ img.glow-outline-left {
 }
 @keyframes spin-counterclockwise {
 	100% {
-		transform: rotate(360deg);
+		transform: rotate(-360deg);
 	}
 }
