@@ -1,25 +1,36 @@
-import { bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import MillenniumFalcon from '../components/millennium-falcon';
 
-import { onChooseEndpoint } from '../actions';
+import {
+	onChooseEndpoint,
+	onSortListData,
+	onToggleItem,
+	onAddMoney,
+	onBuyEntity,
+	onGenerateMoney,
+	onLoadFromLocalStorage
+} from '../actions';
 
-const mapStateToProps = (state) => {
-	const  { endpoint, data } = state;
+const mapStateToProps = state => {
+	const { endpoint, data, money } = state;
 
 	const list = (data && data[endpoint]) || [];
-	console.log(state.operations);
 	return {
 		list,
 		endpoint,
 		loading: state.operations > 0,
-	}
+		money
+	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return bindActionCreators({
+export default connect(
+	mapStateToProps,
+	{
 		onChooseEndpoint: onChooseEndpoint,
-	}, dispatch);
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(MillenniumFalcon);
+		onSortListData: onSortListData,
+		onToggleItem: onToggleItem,
+		onAddMoney: onAddMoney,
+		onBuyEntity: onBuyEntity
+	}
+)(MillenniumFalcon);
