@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import BuyEntityButton from './buttons/buy-entity-button';
 
 const fontAwesomeIconMap = {
 	starships: 'space-shuttle',
@@ -24,19 +25,27 @@ class ItemDisplay extends React.PureComponent {
 		return fontAwesomeIconMap[kind] || 'question-circle';
 	}
 
+	handleToggleItem = () => {
+		const {
+			item: { kind, url },
+			onToggleItem
+		} = this.props;
+		onToggleItem(kind, url);
+	};
+
 	render() {
 		const {
-			item: { name, kind, url, expanded },
+			item: { name, kind, expanded },
 			item,
-			onToggleItem,
-			isAvailable
+			isAvailable,
+			onBuyEntity
 		} = this.props;
 
 		return (
 			<span>
 				<button
 					className="btn btn-xs btn-default"
-					onClick={() => onToggleItem(kind, url)}
+					onClick={this.handleToggleItem}
 					aria-label={expanded ? 'Collapse' : 'Expand'}
 				>
 					{expanded ? (
@@ -48,18 +57,11 @@ class ItemDisplay extends React.PureComponent {
 				<i className={'fa fa-' + this.getFontAwesomeIcon(kind)} />
 				{name}
 				<span className="pull-right">
-					<button
-						disabled={!isAvailable}
-						onClick={() => this.props.onBuyEntity(item, kind)}
-						className={`btn btn-xs btn-${isAvailable ? 'success' : 'default'}`}
-						title={
-							isAvailable
-								? `Buy ${item.name}`
-								: `You can't afford ${item.name} yet`
-						}
-					>
-						Buy {name}
-					</button>
+					<BuyEntityButton
+						onBuyEntity={onBuyEntity}
+						item={item}
+						isAvailable={isAvailable}
+					/>
 				</span>
 				{expanded ? (
 					<div>

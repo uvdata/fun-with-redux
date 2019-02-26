@@ -1,55 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { onLoadCharacterIntoSpaceship } from '../actions';
-
-let localActiveCrewmembers = 0;
+import CharacterSpaceshipList from './character-spaceship-list';
 
 class ChooseSpacshipModal extends Component {
-	componentDidMount() {
-		localActiveCrewmembers = this.props.activeShip.crew_people.length;
-	}
+	state = {
+		localActiveCrewMembers: this.props.activeShip.crew_people.length
+	};
 
-	handleLoadCharacterIntoSpaceship(person, activeShip) {
+	handleLoadCharacterIntoSpaceship = (person, activeShip) => {
+		const { localActiveCrewMembers } = this.state;
 		this.props.onLoadCharacterIntoSpaceship(person, activeShip);
 
-		// Purely local 'state'
-		localActiveCrewmembers++;
+		// Purely local
+		this.setState({ localActiveCrewMembers: localActiveCrewMembers + 1 });
 
 		// Prevent loading more than 3 people into a ship
-		if (localActiveCrewmembers >= 3) {
+		if (localActiveCrewMembers >= 2) {
 			this.props.onCloseClick();
 		}
-	}
-
-	renderTable() {
-		return (
-			<table className="table">
-				<tbody>
-					{this.props.ownedEntities.people.map(person => {
-						if (!person.inShip) {
-							return (
-								<tr key={person.id}>
-									<td>
-										<a
-											href="#"
-											onClick={() =>
-												this.handleLoadCharacterIntoSpaceship(
-													person,
-													this.props.activeShip
-												)
-											}
-										>
-											{person.name}
-										</a>
-									</td>
-								</tr>
-							);
-						}
-					})}
-				</tbody>
-			</table>
-		);
-	}
+	};
 
 	render() {
 		return (
@@ -57,7 +27,13 @@ class ChooseSpacshipModal extends Component {
 				<div className="row crew-chooser">
 					Who do you want to load into {this.props.activeShip.name}?
 				</div>
-				<div className="row crew-chooser">{this.renderTable()}</div>
+				<div className="row crew-chooser">
+					<CharacterSpaceshipList
+						ownedEntities={this.props.ownedEntities}
+						activeShip={this.props.activeShip}
+						onLoadCharacterIntoSpaceship={this.handleLoadCharacterIntoSpaceship}
+					/>
+				</div>
 				<div className="row">
 					<button className="btn btn-success" onClick={this.props.onCloseClick}>
 						Close

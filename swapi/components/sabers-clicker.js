@@ -17,9 +17,7 @@ class SabersClicker extends Component {
 	};
 
 	componentDidMount() {
-		setInterval(() => {
-			this.update();
-		}, 1000);
+		this.updateInterval = setInterval(() => this.update(), 1000);
 		this.props.onLoadFromLocalStorage(localStorage.getItem('redux-money'));
 		this.defaultTitle = document.title;
 	}
@@ -31,15 +29,15 @@ class SabersClicker extends Component {
 		document.title = `${this.props.money} credits - ${this.defaultTitle}`;
 	}
 
+	handleAddMoney = () => {
+		this.props.onAddMoney(1);
+	};
+
 	render() {
 		return (
 			<div>
 				<p className="money-title lead">{this.props.money} credits</p>
-				<a
-					href="#"
-					onClick={() => this.props.onAddMoney(1)}
-					title="Collect credits"
-				>
+				<a href="#" onClick={this.handleAddMoney} title="Collect credits">
 					<div>
 						<img className="sabers" src="/static/sabers.png" />
 						<img className="glow-outline-right" src="/static/streaks.png" />
@@ -48,6 +46,10 @@ class SabersClicker extends Component {
 				</a>
 			</div>
 		);
+	}
+
+	componentWillUnmount() {
+		clearInterval(this.updateInterval);
 	}
 }
 

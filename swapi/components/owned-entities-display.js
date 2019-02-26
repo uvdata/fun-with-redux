@@ -26,8 +26,16 @@ class OwnedEntitiesDisplay extends Component {
 	handleCloseChooser = () => {
 		this.setState({ showChooser: false, activeShip: {} });
 	};
-	handleOpenChooser = ship => {
-		this.setState({ showChooser: true, activeShip: ship });
+	handleOpenChooser = e => {
+		const shipIndex = e.target.dataset.index;
+		// find ship by id
+		const {
+			ownedEntities: { starships }
+		} = this.props;
+		const ship = starships[shipIndex];
+		if (ship) {
+			this.setState({ showChooser: true, activeShip: ship });
+		}
 	};
 
 	render() {
@@ -46,31 +54,32 @@ class OwnedEntitiesDisplay extends Component {
 	}
 
 	renderOwnedEntities() {
-		const { ownedEntities } = this.props;
-		let uniquePeople = countUniques(ownedEntities.people); // We are all unique :)
+		const { ownedEntities, peopleGroup } = this.props;
+
 		return (
 			<div>
 				<h4>You own the following people:</h4>
 				<ul>
-					{Object.keys(uniquePeople).map(ent => {
+					{Object.keys(peopleGroup).map(ent => {
 						return (
 							<li key={ent}>
-								{ent}: {uniquePeople[ent].count} (
-								{uniquePeople[ent].inShipCount} in a starship)
+								{ent}: {peopleGroup[ent].count} ({peopleGroup[ent].inShipCount}{' '}
+								in a starship)
 							</li>
 						);
 					})}
 				</ul>
 				<h4>You own the following starships:</h4>
 				<ul>
-					{ownedEntities.starships.map(ent => {
+					{ownedEntities.starships.map((ent, index) => {
 						return (
 							<li key={ent.id}>
 								{ent.name}: ({ent.crew_people.length}/3)
 								{ent.crew_people.length < 3 && (
 									<button
 										className="btn btn-primary btn-xs"
-										onClick={() => this.handleOpenChooser(ent)}
+										data-index={index}
+										onClick={this.handleOpenChooser}
 									>
 										Load into...
 									</button>
@@ -84,27 +93,30 @@ class OwnedEntitiesDisplay extends Component {
 	}
 }
 
-function countUniques(list) {
-	let uniques = {};
-	list.map(ent => {
+function groupEntity(list) {
+	let groups = {};
+	list.forEach(ent => {
 		let key = ent.name;
-		if (!uniques.hasOwnProperty(key)) {
-			uniques[key] = {};
-			uniques[key]['count'] = 0;
-			uniques[key]['inShipCount'] = 0;
-			uniques[key]['data'] = ent;
+		if (!groups.hasOwnProperty(key)) {
+			groups[key] = {};
+			groups[key]['count'] = 0;
+			groups[key]['inShipCount'] = 0;
+			groups[key]['data'] = ent;
 		}
-		uniques[key].count += 1;
+		groups[key].count += 1;
 
 		if (ent.inShip) {
-			uniques[key].inShipCount += 1;
+			groups[key].inShipCount += 1;
 		}
 	});
-	return uniques;
+	return groups;
 }
 
 const mapStateToProps = state => {
-	return { ownedEntities: state.ownedEntities };
+	return {
+		ownedEntities: state.ownedEntities,
+		peopleGroup: groupEntity(state.ownedEntities.people)
+	};
 };
 
 export default connect(mapStateToProps)(OwnedEntitiesDisplay);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import ItemDisplay from './item-display';
+import ChooseEndpoint from './buttons/choose-endpoint';
 
 class MillenniumFalcon extends React.PureComponent {
 	static propTypes = {
@@ -16,17 +17,9 @@ class MillenniumFalcon extends React.PureComponent {
 		money: PropTypes.number.isRequired
 	};
 
-	renderStarWarsResourceButton(endpoint, title, isLoading) {
-		return (
-			<button
-				disabled={isLoading}
-				onClick={() => this.props.onChooseEndpoint(endpoint)}
-				className="btn btn-danger"
-			>
-				{title}
-			</button>
-		);
-	}
+	handleSortList = () => {
+		this.props.onSortListData(this.props.endpoint);
+	};
 
 	renderItems(list) {
 		return (
@@ -34,7 +27,7 @@ class MillenniumFalcon extends React.PureComponent {
 				<button
 					className="btn btn-default btn-xs"
 					type="button"
-					onClick={() => this.props.onSortListData(this.props.endpoint)}
+					onClick={this.handleSortList}
 				>
 					Sort by name <i className="fa fa-sort-down fa-lg" title="Sort" />
 				</button>
@@ -64,8 +57,14 @@ class MillenniumFalcon extends React.PureComponent {
 			return money >= item.mass;
 		} else if (item.kind === 'starships') {
 			return money >= item.cost_in_credits;
+		} else {
+			return false;
 		}
 	}
+
+	handleAddAlotOfMoney = () => {
+		this.props.onAddMoney(22867000);
+	};
 
 	render() {
 		const { loading, list } = this.props;
@@ -84,16 +83,31 @@ class MillenniumFalcon extends React.PureComponent {
 				<div className="btn-group">
 					<button
 						className="btn btn-default"
-						onClick={() => this.props.onAddMoney(22867000)}
+						onClick={this.handleAddAlotOfMoney}
 					>
 						Collect a lot of credits (if waiting isn't your thing)
 					</button>
 				</div>
 				<br />
 				<div className="btn-group">
-					{this.renderStarWarsResourceButton('people', 'People', loading)}
-					{this.renderStarWarsResourceButton('starships', 'Starships', loading)}
-					{this.renderStarWarsResourceButton('films', 'Films', loading)}
+					<ChooseEndpoint
+						endpoint="people"
+						title="People"
+						isLoading={loading}
+						onChooseEndpoint={this.props.onChooseEndpoint}
+					/>
+					<ChooseEndpoint
+						endpoint="starships"
+						title="Starships"
+						isLoading={loading}
+						onChooseEndpoint={this.props.onChooseEndpoint}
+					/>
+					<ChooseEndpoint
+						endpoint="films"
+						title="Films"
+						isLoading={loading}
+						onChooseEndpoint={this.props.onChooseEndpoint}
+					/>
 				</div>
 				<br />
 				<br />
