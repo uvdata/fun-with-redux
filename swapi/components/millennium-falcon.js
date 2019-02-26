@@ -7,14 +7,16 @@ export default class MillenniumFalcon extends React.PureComponent {
 
 	static propTypes = {
 		onChooseEndpoint: PropTypes.func.isRequired,
+		onExpandItem: PropTypes.func.isRequired,
 		list: PropTypes.arrayOf(PropTypes.shape({
 			url: PropTypes.string.isRequired,
 		})).isRequired,
 		side: PropTypes.string,
+		expandedItems: PropTypes.arrayOf(PropTypes.string)
 	};
 
 	render() {
-		const { loading, list, onChooseEndpoint } = this.props;
+		const { loading, list, onChooseEndpoint, onExpandItem, expandedItems } = this.props;
 
 		const iconClass = classNames('fa', {
 			'fa-refresh': loading,
@@ -29,8 +31,9 @@ export default class MillenniumFalcon extends React.PureComponent {
 				<button disabled={loading} onClick={() => onChooseEndpoint('films')} className="btn btn-danger">Films</button>
 			</div>
 			<br /><br />
-			<table className="table"><tbody>
-					{list.map((item) => <tr key={item.url}><td><ItemDisplay>{item}</ItemDisplay></td></tr>)}
+			<table className="table">
+				<tbody>
+					{list.map((item) => <tr key={item.url}><td><ItemDisplay onExpandItem={onExpandItem} isExpanded={expandedItems.includes(item.url)}>{item}</ItemDisplay></td></tr>)}
 				</tbody>
 			</table>
 		</div>);

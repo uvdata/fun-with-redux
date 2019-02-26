@@ -3,22 +3,24 @@ import { connect } from 'react-redux';
 import MillenniumFalcon from '../components/millennium-falcon';
 
 import { onChooseEndpoint } from '../actions';
+import { onExpandItem } from '../actions';
 
 const mapStateToProps = (state) => {
-	const  { endpoint, data } = state;
-
+	const  { endpoint, data, expandedItems } = state;
 	const list = (data && data[endpoint]) || [];
-	console.log(state.operations);
+
 	return {
 		list,
 		endpoint,
 		loading: state.operations > 0,
+		expandedItems
 	}
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return bindActionCreators({
 		onChooseEndpoint: onChooseEndpoint,
+		onExpandItem: onExpandItem
 	}, dispatch);
 };
 

@@ -8,6 +8,8 @@ const defaultData = {
 		/** will contain response from SWAPI, indexed by endpiont */
 	},
 	operations: 0,
+	expandedItems: [],
+	model: {}
 };
 
 const reducer = (state = {}, action) => {
@@ -41,6 +43,30 @@ const reducer = (state = {}, action) => {
 			return {
 				...state,
 				operations: state.operations - 1,
+			}
+		}
+		
+		case types.EXPAND_ITEM: {
+			return {
+				...state,
+				expandedItems: [...state.expandedItems, action.payload]
+			}
+		}
+		
+		case types.COLLAPSE_ITEM: {
+			return {
+				...state,
+				expandedItems: state.expandedItems.filter(itemId => itemId !== action.payload)
+			}
+		}
+
+		case types.UPDATE_MODEL: {
+			var obj = state.model;
+			obj[action.payload] = state.data[state.endpoint];
+
+			state = {
+				...state,
+				model: state.model = obj
 			}
 		}
 	}
