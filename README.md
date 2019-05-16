@@ -21,5 +21,5 @@ The first two challenges can be solved without having to touch anything in Redux
 2. Sort the list of items alphabetically
 3. The `ItemDisplay` component contains a button that expands or collapses a JSON dump. It does so by holding it's own state.
 Rewrite this to use redux. 
-4. Rewrite the existing `onChooseEndpoint` action creator to cache data, instead of fetching it every one changes endpiont
+4. Rewrite the existing `onChooseEndpoint` action creator to cache data, instead of fetching it every one changes endpoint
 5. Make more changes - use your imagination!
